@@ -2,7 +2,7 @@
    Cache-first for the shell so the app opens with no signal, then refreshes
    in the background. Version string changes whenever the page changes, which
    is what evicts the previous build. */
-var V = "p107-f13115ef2571";
+var V = "p107-a59b9bcf771b";
 var ASSETS = ["./","./index.html","./manifest.webmanifest",
               "./icon-192.png","./icon-512.png","./icon-maskable.png","./apple-touch-icon.png"];
 /* figures are cached on first view, not at install, to keep the install light */

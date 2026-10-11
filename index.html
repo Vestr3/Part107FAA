@@ -19,7 +19,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Part 107">
 <title>Part 107 Ground School</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=B612:wght@400;700&family=B612+Mono:wght@400;700&family=Instrument+Sans:wght@400;500;600;700&display=swap">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=B612:wght@400;700&family=B612+Mono:wght@400;700&family=Instrument+Sans:wght@400;500;600;700&display=swap">
 <style id="app-style">
 /* ============================================================
    PART 107 GROUND SCHOOL · DESIGN SYSTEM
@@ -94,10 +94,10 @@
 
 /* ---------- reset and base ---------- */
 *{box-sizing:border-box}
-html,body{max-width:100%;overflow-x:hidden}
+html,body{max-width:100%;overflow-x:clip}
 body{
   background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16.5px;line-height:1.6;
-  -webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent;overscroll-behavior-y:contain;
+  -webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent;
   background-image:
     radial-gradient(1200px 600px at 80% -10%, color-mix(in srgb, var(--cyan) 7%, transparent), transparent 60%),
     radial-gradient(900px 500px at -10% 110%, color-mix(in srgb, var(--accent) 6%, transparent), transparent 60%);
@@ -178,10 +178,11 @@ section{margin-top:40px}
   .tabbar button[aria-current="page"]::after{content:"";position:absolute;top:0;left:22%;right:22%;height:2px;border-radius:0 0 3px 3px;background:var(--accent)}
   .wrap{padding-inline:16px;padding-bottom:calc(80px + env(safe-area-inset-bottom,0px))}
   body{font-size:16px}
-  .hero{padding:22px 0 4px}
+  .hero{padding:18px 0 2px}
+  .lede{font-size:15.5px}
   .ring{width:108px;height:108px}.ring .rv{font-size:22px}
   .tile{padding:15px 15px}
-  h1{font-size:clamp(26px,7.5vw,32px)}
+  h1{font-size:clamp(24px,6.8vw,30px)}
   h2{font-size:22px}h3{font-size:18.5px}
   .lede{font-size:16.5px}
 }
@@ -350,12 +351,13 @@ td b.g{color:var(--ok)}td b.m{color:var(--warn)}td b.r{color:var(--no)}
 .col *{overflow-wrap:anywhere}
 
 /* ---------- question card ---------- */
-.qcard{padding:22px 20px;box-shadow:var(--sh2);animation:cardIn var(--t3) var(--ease-out) both}
+.qcard{padding:20px 18px;box-shadow:var(--sh2)}
+.qcard:not(.revealed){animation:cardIn var(--t3) var(--ease-out) both}
 @keyframes cardIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .bento>.tile,.modes>.mode,.achs>.ach{animation:cardIn .5s var(--ease-out) both}
 .bento>:nth-child(2),.modes>:nth-child(2){animation-delay:.04s}.bento>:nth-child(3),.modes>:nth-child(3){animation-delay:.08s}.bento>:nth-child(4),.modes>:nth-child(4){animation-delay:.12s}.bento>:nth-child(5),.modes>:nth-child(5){animation-delay:.16s}.bento>:nth-child(6),.modes>:nth-child(6){animation-delay:.2s}.bento>:nth-child(n+7),.modes>:nth-child(n+7){animation-delay:.24s}
 .qmeta{display:flex;justify-content:space-between;gap:12px;margin-bottom:13px;flex-wrap:wrap;align-items:center}
-.q{font-size:19px;line-height:1.45;font-weight:600;font-family:var(--f-display);margin:0 0 17px}
+.q{font-size:18px;line-height:1.45;font-weight:600;font-family:var(--f-display);margin:0 0 14px;text-wrap:pretty}
 .opts{display:flex;flex-direction:column;gap:9px}
 .opt{
   display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;min-height:52px;padding:14px 15px;border-radius:10px;
@@ -374,9 +376,9 @@ td b.g{color:var(--ok)}td b.m{color:var(--warn)}td b.r{color:var(--no)}
 .opt.bad .ltr,.opt.bad .mk2{color:var(--no)}
 @keyframes okPulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--ok) 45%,transparent)}100%{box-shadow:0 0 0 14px transparent}}
 @keyframes badShake{0%,100%{transform:none}20%{transform:translateX(-4px)}40%{transform:translateX(4px)}60%{transform:translateX(-3px)}80%{transform:translateX(3px)}}
-.confrow{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin:0 0 16px;padding:11px 13px;background:var(--surface2);border:1px solid var(--line2);border-radius:10px}
+.confrow{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:0 0 12px}
 .confrow .cl{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-right:4px}
-.exp{margin-top:15px;padding:15px 16px;border-radius:10px;background:var(--surface3);border-left:3px solid var(--cyan);animation:cardIn var(--t3) var(--ease-out) both}
+.exp{margin-top:15px;padding:15px 16px;border-radius:10px;background:var(--surface3);border-left:3px solid var(--cyan)}
 .exp .hd{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-bottom:7px}
 .exp p{margin:0;font-size:16px;color:var(--ink2)}.exp b{color:var(--ink)}
 .exp .src,.src{margin-top:10px;font-family:var(--f-mono);font-size:11.5px;color:var(--muted);line-height:1.7}
@@ -605,6 +607,86 @@ td b.g{color:var(--ok)}td b.m{color:var(--warn)}td b.r{color:var(--no)}
 .jobcard dl>:nth-last-child(-n+2){border-bottom:none}
 @media(max-width:480px){.jobcard dl{grid-template-columns:1fr}.jobcard dt{padding-bottom:0;border-bottom:none}.jobcard dd{padding-top:2px}}
 
+
+/* ---------- focused quiz mode ---------- */
+.quizmode .topbar,.quizmode .tabbar{display:none}
+.quizmode .wrap{padding-top:0;padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+.quizmode .foot{display:none}
+.quiz{max-width:720px;margin:0 auto}
+.quizbar{position:sticky;top:0;z-index:45;display:flex;align-items:center;gap:12px;padding:10px 0;padding-top:calc(10px + env(safe-area-inset-top,0px));background:var(--bg);margin-bottom:12px}
+.quizbar .qx{flex:none;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink2);font-size:14px;cursor:pointer;display:grid;place-items:center}
+.quizbar .qx:hover{border-color:var(--no);color:var(--no)}
+.qprog{flex:1;height:6px;border-radius:99px;background:var(--surface3);overflow:hidden;border:1px solid var(--line2)}
+.qprog i{display:block;height:100%;background:linear-gradient(90deg,var(--cyan),var(--accent));transition:width var(--t3) var(--ease-out)}
+.quizbar .qn{font-family:var(--f-mono);font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums;flex:none}.quizbar .qn b{color:var(--ink);font-size:15px}
+.quizbar .qs{font-family:var(--f-mono);font-size:12.5px;color:var(--ok);flex:none;font-variant-numeric:tabular-nums}
+.quizbar .clock{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-size:13px;color:var(--ink);font-weight:600;flex:none}
+.quizbar .clock.low{color:var(--no);animation:blinkLow 1s ease-in-out infinite}
+.fb{margin-top:14px;padding:14px 15px;border-radius:12px;border:1px solid var(--line);background:var(--surface2);border-left-width:4px;animation:cardIn var(--t2) var(--ease-out) both}
+.fb.ok{border-left-color:var(--ok)}.fb.no{border-left-color:var(--no)}
+.fbh{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.fbv{font-family:var(--f-display);font-weight:700;font-size:16px}.fb.ok .fbv{color:var(--ok)}.fb.no .fbv{color:var(--no)}
+.fbtag{font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--no);background:var(--no-soft);padding:3px 8px;border-radius:4px}
+.fbx{margin:0;font-size:15.5px;line-height:1.55;color:var(--ink2)}.fbx b{color:var(--ink)}
+.more{margin-top:10px;border-top:1px solid var(--line2);padding-top:8px}
+.more summary{cursor:pointer;font-weight:600;font-size:14px;color:var(--cyan);list-style:none;display:flex;align-items:center;gap:8px;min-height:36px}
+.more summary::-webkit-details-marker{display:none}
+.more summary::before{content:"";width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(-45deg);transition:transform var(--t1) var(--ease);flex:none;margin-left:2px}
+.more[open] summary::before{transform:rotate(45deg)}
+.more .why{margin-top:10px}
+.more .rulebox,.more .trapbox{margin-top:10px}
+.more .srcbtn{margin-top:10px}
+.qact{position:fixed;left:0;right:0;bottom:0;z-index:70;transform:translateY(110%);transition:transform var(--t2) var(--ease-out);background:var(--glass);-webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px);border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px))}
+.qact.show{transform:none}
+.qact .qin{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:12px}
+.qact .btn{flex:1;min-height:50px;font-size:16px}
+.qact .kbd-hint{margin-left:10px;color:var(--accent-ink);border-color:color-mix(in srgb,var(--accent-ink) 40%,transparent);opacity:.8}
+.qhint{font-size:13.5px;color:var(--muted)}
+.rev{margin:12px 0;padding:14px 16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r2)}
+.revopt{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border-radius:8px;font-size:14.5px;margin:4px 0;border:1px solid transparent}
+.revopt.ok{background:var(--ok-soft);border-color:var(--ok)}.revopt.bad{background:var(--no-soft);border-color:var(--no)}
+.revopt .ltr{font-family:var(--f-mono);font-size:12px;color:var(--muted);flex:none;width:14px;padding-top:2px}
+.revx{font-size:14.5px;color:var(--ink2);margin:8px 0}
+@media(max-width:767px){
+  .qcard{padding:16px 14px;border-radius:var(--r2)}
+  .q{font-size:17px;margin-bottom:12px}
+  .opt{padding:12px 13px;font-size:15.5px;min-height:48px}
+  .confrow{margin-bottom:10px}.confrow .cl{font-size:10px}
+  .cbtn{padding:7px 11px;font-size:13px;min-height:34px}
+  .quizmode .wrap{padding-inline:12px}
+  .quizbar{margin-bottom:8px}
+  .fb{padding:12px 13px}
+}
+@media(max-height:620px){.q{font-size:16px}.opt{min-height:44px;padding:10px 12px}.qcard{padding:14px 12px}}
+
+/* ---------- first screen ---------- */
+.welcome{display:grid;gap:28px;align-items:center;padding:34px 0 10px}
+@media(min-width:900px){.welcome{grid-template-columns:1.05fr .95fr;gap:40px;padding:48px 0 18px}}
+.wh1{font-size:clamp(32px,5.2vw,54px);line-height:1.04;letter-spacing:-.025em;margin:0 0 16px;max-width:14ch}
+.welcome .lede{font-size:clamp(16px,1.6vw,19px);max-width:48ch;margin-bottom:22px}
+.wcta{gap:10px}.btn.lg{min-height:52px;font-size:16px;padding:12px 22px}
+.wnote{font-family:var(--f-mono);font-size:11.5px;color:var(--muted);margin:14px 0 0;letter-spacing:.02em}
+.wart{position:relative;min-width:0}
+.herosvg{width:100%;height:auto;display:block;color:var(--ink);filter:drop-shadow(0 18px 30px rgba(0,0,0,.12))}
+.herosvg .craft{animation:hover 5s var(--ease) infinite;transform-box:fill-box;transform-origin:center}
+.herosvg .hud{transform-origin:300px 190px;animation:hudspin 60s linear infinite}
+@keyframes hover{0%,100%{transform:translateY(0) scale(1.3)}50%{transform:translateY(-6px) scale(1.3)}}
+@keyframes hudspin{to{transform:rotate(360deg)}}
+.wfeat{display:grid;gap:12px;margin:26px 0 8px}
+@media(min-width:720px){.wfeat{grid-template-columns:repeat(3,1fr)}}
+.wfeat article{background:var(--surface);border:1px solid var(--line);border-radius:var(--r3);padding:20px 20px 18px;box-shadow:var(--sh1);display:flex;flex-direction:column;gap:8px;min-width:0}
+.wfeat .fk{font-family:var(--f-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)}
+.wfeat h3{margin:0;font-size:19px}.wfeat p{margin:0 0 6px;font-size:14.5px;color:var(--ink2);flex:1}
+.wfeat .btn{width:auto;align-self:flex-start;margin-left:0}
+.wstrip{display:grid;gap:10px;margin:22px 0 10px;padding:16px 18px;border-radius:var(--r3);background:linear-gradient(135deg,var(--surface2),var(--surface));border:1px solid var(--line)}
+@media(min-width:720px){.wstrip{grid-template-columns:repeat(3,1fr);gap:24px}}
+.wstrip div{display:flex;flex-direction:column;gap:3px;min-width:0}
+.wstrip b{font-family:var(--f-display);font-size:20px;color:var(--accent)}.wstrip span{font-size:13.5px;color:var(--muted)}
+/* view transition: one fade and lift per navigation, none on in-place updates */
+#app.vt>*{animation:viewIn .32s var(--ease-out) both}
+@keyframes viewIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){#app.vt>*{animation:none}.herosvg .craft,.herosvg .hud{animation:none}}
+
 /* today plan and backup */
 .todo{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:8px}
 .todo li{display:flex;gap:12px;align-items:center;padding:10px 12px;border-radius:10px;background:var(--surface2);border:1px solid var(--line2)}
@@ -734,11 +816,18 @@ input[type=range]{width:100%;accent-color:var(--accent);height:32px;touch-action
   transition:opacity var(--t2) var(--ease),transform var(--t2) var(--ease-out);pointer-events:none}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 @media(min-width:768px){.toast{bottom:28px}}
+.quizmode .toast{bottom:calc(96px + env(safe-area-inset-bottom,0px))}
 
 /* motion preference */
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.fc{transition:none}}
 
 </style>
+<script>
+window.addEventListener("error",function(e){
+  var app=document.getElementById("app");
+  if(app&&!app.innerText.trim()){app.innerHTML='<div class="col"><div class="call warnc" role="alert"><span class="stamp">The page failed to start</span><h3>'+String(e.message).replace(/</g,"&lt;")+'</h3><p class="mut">line '+e.lineno+'</p><p>Send this message to the person who maintains this site.</p></div></div>';}
+});
+</script>
 </head>
 <body>
 
@@ -2331,7 +2420,7 @@ var st={view:"dash",sub:{},mod:0,mode:null,order:[],i:0,picked:null,conf:null,sh
  log:[],srs:{},exams:[],misconceptions:[],seen:{},examDate:"",lastAns:null,
  bookmarks:[],ach:{},missions:{},daily:{},fcIdx:0,fcSeen:{},timedPref:0,timed:0,deadline:0};
 try{var _s=localStorage.getItem(LS);if(_s){var _p=JSON.parse(_s);for(var _k in _p)if(_p[_k]!==undefined)st[_k]=_p[_k]}}catch(e){}
-var SAVE_KEYS=["log","srs","exams","misconceptions","seen","examDate","bookmarks","ach","missions","daily","fcIdx","fcSeen","timedPref","sub","syBest","wx","ap","dr","m1run","mRun","results","modSeen","rm"];
+var SAVE_KEYS=["log","srs","exams","misconceptions","seen","examDate","bookmarks","ach","missions","daily","fcIdx","fcSeen","timedPref","sub","syBest","wx","ap","dr","m1run","mRun","results","modSeen","rm","lastDrill"];
 function save(){try{var o={};for(var i=0;i<SAVE_KEYS.length;i++)o[SAVE_KEYS[i]]=st[SAVE_KEYS[i]];localStorage.setItem(LS,JSON.stringify(o))}catch(e){}}
 function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
 
@@ -2692,9 +2781,7 @@ function vLearn(){
  h+='</div><div class="col">';
  if(m.chart)h+=chartLabBody();
  for(var j=0;j<m.body.length;j++)h+=blk(m.body[j]);
- h+='<div class="installbox"><b>Outside video, if you want it</b>';
- h+='<p>Franco found this playlist useful: <a href="https://www.youtube.com/playlist?list=PLRd2JSjVHovGabIuGeoupZgkzGmdys4Ol" target="_blank" rel="noopener">FAA Part 107 Exam Study Guides</a> by MikeSytes, 31 videos.</p>';
- h+='<p>It is somebody else\'s work, so it is linked rather than copied in, and nothing in it has been checked against the FAA sources the way the questions here were. If a video and this site ever disagree, open the rule link on the question and let the regulation settle it.</p></div>';
+ h+='<div class="installbox"><b>Video playlist</b><p><a href="https://www.youtube.com/playlist?list=PLRd2JSjVHovGabIuGeoupZgkzGmdys4Ol" target="_blank" rel="noopener">FAA Part 107 Exam Study Guides</a>, 31 videos by MikeSytes on YouTube. These videos are his work, not ours; credit to him.</p></div>';
  h+='<div class="row"><button class="btn" data-drill="'+m.area+'">Drill this area</button>';
  if(st.mod<MODULES.length-1)h+='<button class="btn gh" data-mod="'+(st.mod+1)+'">Next module</button>';
  h+='</div></div></div>';
@@ -2836,20 +2923,21 @@ function tickClock(){
  },1000);
 }
 function startSet(d){
+ if(d!=="daily"&&d!=="diag")st.lastDrill=d;
  st.mode=d;st.order=buildSet(d==="chartgen"?"II":d);
  if(d==="chartgen"){st.order=[];for(var z=0;z<20;z++){var g=genAny("II");if(g)st.order.push(g)}}
- st.i=0;st.picked=null;st.conf=null;st.answers=[];st.recorded=0;st.timedOut=0;st.shownAt=Date.now();
+ st.i=0;st.picked=null;st.conf=null;st.answers=[];st.picks=[];st.recorded=0;st.timedOut=0;st.shownAt=Date.now();
  st.timed=(st.timedPref&&(d==="full"||d==="challenge"))?1:0;
  st.deadline=st.timed?Date.now()+120*60000:0;
  render();tickClock();
 }
 function vSoon(n){return '<div class="hero col"><h1>'+esc(n)+'</h1><p class="lede">This module is being built.</p></div>'}
 function vRun(){
- var tot=st.order.length,h='<div class="col" style="padding-top:26px">',i;
+ var tot=st.order.length,h='<div class="quiz">',i;
+ var exam=(st.mode==="full"||st.mode==="challenge"||st.mode==="validation"||st.mode==="faa");
  if(st.i>=tot){
   var right=0;for(i=0;i<st.answers.length;i++)if(st.answers[i])right++;
   var pct=tot?Math.round(right/tot*100):0;
-  var isExam=(st.mode==="full"||st.mode==="challenge"||st.mode==="validation"||st.mode==="faa");
   if(!st.recorded&&tot){
    st.exams.push({at:Date.now(),mode:st.mode,pct:pct,n:tot});
    if(st.mode==="daily")st.daily[dayKey()]=right;
@@ -2860,74 +2948,77 @@ function vRun(){
   var per={};for(i=0;i<st.order.length;i++){var t=st.order[i].t;if(!per[t])per[t]={r:0,n:0};per[t].n++;if(st.answers[i])per[t].r++}
   h+='<div class="result">'+(st.timedOut?'<p class="mut" style="margin-bottom:6px">Time expired. Unanswered questions count as wrong, exactly as on the real exam.</p>':'')+'<p class="verdict '+(pass?"g":"r")+'">'+(pass?"Above passing":"Below passing")+'</p>';
   h+='<div class="big '+(pass?"g":"r")+'">'+pct+'%</div><p>'+right+' of '+tot+' correct. The real exam needs 42 of 60.</p>';
-  if(isExam&&pct<85)h+='<p class="mut">The gate wants 85%, not 70%. That margin absorbs a bad chart question, and any practice bank is easier than the real thing.</p>';
+  if(exam&&pct<85)h+='<p class="mut">The gate wants 85%, not 70%. That margin absorbs a bad chart question, and any practice bank is easier than the real thing.</p>';
   h+='<div class="brk">';
   for(var a2 in per){var ap=Math.round(per[a2].r/per[a2].n*100);
    var nm="";for(var z=0;z<AREAS.length;z++)if(AREAS[z].id===a2)nm=AREAS[z].name;
    h+='<div class="r"><span>'+esc(nm)+'</span><span class="v '+(ap>=80?"g":"r")+'">'+per[a2].r+'/'+per[a2].n+' · '+ap+'%</span></div>';}
   h+='</div><div class="row" style="justify-content:center"><button class="btn" data-v="dash">Back to dashboard</button>';
   if(st.misconceptions.length)h+='<button class="btn gh" data-drill="mis">Fix '+st.misconceptions.length+' misconception'+(st.misconceptions.length>1?"s":"")+'</button>';
-  h+='</div></div></div>';
+  h+='</div></div>';
+  /* timed exams give no feedback during the run, so the review comes here */
+  if(st.picks&&st.picks.length){
+   var missed=[];for(i=0;i<st.order.length;i++)if(!st.answers[i])missed.push(i);
+   h+='<h3 style="margin-top:26px">Review'+(missed.length?' · '+missed.length+' missed':'')+'</h3>';
+   if(!missed.length)h+='<p class="mut">Every question right. Nothing to review.</p>';
+   for(var m=0;m<missed.length;m++){var qi=missed[m],qq=st.order[qi],pk=st.picks[qi];
+    h+='<div class="rev"><div class="qmeta"><span class="pill acs">'+(qi+1)+'</span><span class="pill">'+esc(qq.acs)+'</span></div><p class="q" style="font-size:16px">'+esc(qq.q).replace(/\n/g,"<br>")+'</p>';
+    for(var o2=0;o2<qq.o.length;o2++)h+='<div class="revopt'+(o2===qq.a?" ok":(o2===pk?" bad":""))+'"><span class="ltr">'+"ABC".charAt(o2)+'</span><span>'+esc(qq.o[o2])+'</span></div>';
+    h+='<p class="revx">'+qq.e+'</p>';var rf=refFor(qq);if(rf)h+='<a class="srcbtn" href="'+rf.url+'" target="_blank" rel="noopener"><span class="sx"><span class="sl">Read the actual rule</span>'+esc(rf.cite)+'</span><span class="sa">→</span></a>';
+    h+='</div>';}
+  }
+  h+='</div>';
   return h;
  }
  var q=st.order[st.i], rs=0;
  for(i=0;i<st.answers.length;i++)if(st.answers[i])rs++;
  var nm="";for(i=0;i<AREAS.length;i++)if(AREAS[i].id===q.t)nm=AREAS[i].name;
- h+='<div class="scorebar"><span class="s"><b>'+(st.i+1)+'</b> / '+tot+'</span><span class="s">'+rs+' correct</span>'+(st.timed?'<span class="s clock" id="clock">'+clockStr()+'</span>':'')+'<div class="bar"><i style="width:'+Math.round(st.i/tot*100)+'%"></i></div><button class="btn gh sm" id="quit">Quit</button></div>';
- h+='<div class="qcard"><div class="qmeta"><span class="pill acs">'+esc(nm)+'</span><span class="pill">'+esc(q.acs)+'</span>'+(q.gen?'<span class="pill gen">generated</span>':'')+(q.val?'<span class="pill val">validation</span>':'')+(q.faa?'<span class="pill faa">official FAA</span>':'');
- if(!q.gen)h+='<button class="bmbtn'+(isBookmarked(q)?" on":"")+'" data-bm="1" aria-pressed="'+(isBookmarked(q)?"true":"false")+'" aria-label="Bookmark this question" title="Bookmark">'+(isBookmarked(q)?"\u2691":"\u2690")+'</button>';
+ var revealed=st.picked!==null;
+ /* compact header: progress, counter, clock, quit */
+ h+='<div class="quizbar"><button class="qx" id="quit" aria-label="Quit this set">✕</button><div class="qprog" role="progressbar" aria-valuemin="0" aria-valuemax="'+tot+'" aria-valuenow="'+(st.i+1)+'"><i style="width:'+Math.round((st.i+(revealed?1:0))/tot*100)+'%"></i></div><span class="qn"><b>'+(st.i+1)+'</b>/'+tot+'</span>'+(st.timed?'<span class="clock" id="clock">'+clockStr()+'</span>':'<span class="qs" title="correct so far">'+rs+' ✓</span>')+'</div>';
+ h+='<div class="qcard'+(revealed?" revealed":"")+'"><div class="qmeta"><span class="pill acs">'+esc(nm)+'</span><span class="pill">'+esc(q.acs)+'</span>'+(q.gen?'<span class="pill gen">generated</span>':'')+(q.val?'<span class="pill val">validation</span>':'')+(q.faa?'<span class="pill faa">official FAA</span>':'');
+ if(!q.gen)h+='<button class="bmbtn'+(isBookmarked(q)?" on":"")+'" data-bm="1" aria-pressed="'+(isBookmarked(q)?"true":"false")+'" aria-label="Bookmark this question" title="Bookmark">'+(isBookmarked(q)?"⚑":"⚐")+'</button>';
  h+='</div>';
  h+='<p class="q">'+esc(q.q).replace(/\n/g,"<br>")+'</p>';
  if(q.fig){var fk=figKeyFrom(q.fig);
   if(fk&&FIGS[fk])h+=figCard(fk,q.fig.replace(/^Figure\s+\d+\.?,?\s*/i,""));
   else h+='<div class="figbox"><b>Needs '+esc(q.fig)+'</b><span>Open the free FAA <a href="'+AKTS+'" target="_blank" rel="noopener">Airman Knowledge Testing Supplement</a> (FAA-CT-8080-2H) and find '+esc(q.fig)+'. On test day you get this same booklet on paper.</span></div>';}
- if(st.picked===null){
-  h+='<div class="confrow"><span class="cl">How sure are you?</span>';
+ if(!revealed&&!st.timed){
+  h+='<div class="confrow" role="group" aria-label="How sure are you"><span class="cl">Sure?</span>';
   h+='<button class="cbtn'+(st.conf==="guess"?" on":"")+'" data-conf="guess">Guessing</button>';
-  h+='<button class="cbtn'+(st.conf==="unsure"?" on":"")+'" data-conf="unsure">Fairly sure</button>';
+  h+='<button class="cbtn'+(st.conf==="unsure"?" on":"")+'" data-conf="unsure">Fairly</button>';
   h+='<button class="cbtn'+(st.conf==="certain"?" on":"")+'" data-conf="certain">Certain</button></div>';
  }
  h+='<div class="opts">';
  for(var o=0;o<q.o.length;o++){var cls="opt";
-  if(st.picked!==null){if(o===q.a)cls+=" ok";else if(o===st.picked)cls+=" bad"}
+  if(revealed){if(o===q.a)cls+=" ok";else if(o===st.picked)cls+=" bad"}
   var mk="";
-  if(st.picked!==null)mk='<span class="mk2">'+(o===q.a?"\u2713":(o===st.picked?"\u2717":"")) +'</span>';
-  h+='<button class="'+cls+'" data-pick="'+o+'"'+(st.picked!==null?" disabled":"")+'><span class="ltr">'+"ABC".charAt(o)+'</span><span class="otext">'+esc(q.o[o])+'</span>'+mk+'</button>';}
+  if(revealed)mk='<span class="mk2">'+(o===q.a?"✓":(o===st.picked?"✗":"")) +'</span>';
+  h+='<button class="'+cls+'" data-pick="'+o+'"'+(revealed?" disabled":"")+'><span class="ltr">'+"ABC".charAt(o)+'</span><span class="otext">'+esc(q.o[o])+'</span>'+mk+'</button>';}
  h+='</div>';
- if(st.picked!==null){
+ if(revealed){
   var ok=st.picked===q.a, L="ABC", oi;
-  h+='<div class="exp"><div class="hd">'+(ok?"Correct, "+L.charAt(q.a):"Answer is "+L.charAt(q.a))+(st.conf==="certain"&&!ok?' \u00b7 flagged as a misconception':'')+'</div><p>'+q.e+'</p></div>';
-
-  /* per-option verdicts: why each choice is right or wrong */
+  h+='<div class="fb '+(ok?"ok":"no")+'" id="fb"><div class="fbh"><span class="fbv">'+(ok?"Correct":"Not quite · the answer is "+L.charAt(q.a))+'</span>'+(st.conf==="certain"&&!ok?'<span class="fbtag">flagged as a misconception</span>':'')+'</div><p class="fbx">'+q.e+'</p>';
+  var ref=refFor(q);
+  h+='<details class="more"'+(ok?'':' open')+'><summary>Why each choice, the rule, and the source</summary>';
   if(q.why&&q.why.length===q.o.length){
    h+='<div class="why">';
-   for(oi=0;oi<q.o.length;oi++){
-    var right=(oi===q.a);
-    h+='<div class="wrow '+(right?"r":"w")+'"><span class="wl">'+L.charAt(oi)+'</span><span class="wt">';
-    var wt=String(q.why[oi]).replace(/^\s*(Correct|Right|Wrong|Incorrect)\s*[:.\u2014-]\s*/i,"");
-    wt=wt.charAt(0).toUpperCase()+wt.slice(1);
-    h+='<span class="vb">'+(right?"The answer":"Why not")+'</span>'+wt+'</span></div>';
-   }
+   for(oi=0;oi<q.o.length;oi++){var right=(oi===q.a);
+    var wt=String(q.why[oi]).replace(/^\s*(Correct|Right|Wrong|Incorrect)\s*[:.—-]\s*/i,"");wt=wt.charAt(0).toUpperCase()+wt.slice(1);
+    h+='<div class="wrow '+(right?"r":"w")+'"><span class="wl">'+L.charAt(oi)+'</span><span class="wt"><span class="vb">'+(right?"The answer":"Why not")+'</span>'+wt+'</span></div>';}
    h+='</div>';
   }
-
   if(q.rule)h+='<div class="rulebox"><span class="rl2">The rule</span><p>'+q.rule+'</p></div>';
   if(q.trap)h+='<div class="trapbox"><span class="rl2">Watch out</span><p>'+q.trap+'</p></div>';
-
-  var ref=refFor(q);
-  if(ref){
-   h+='<a class="srcbtn" href="'+ref.url+'" target="_blank" rel="noopener">';
-   h+='<span class="sx"><span class="sl">Read the actual rule</span>'+esc(ref.cite)+'</span><span class="sa">\u2192</span></a>';
-  }
-
-  h+='<p class="src">Concept <code>'+esc(q.gen?q.g:q.acs)+'</code>.';
-  if(q.gen)h+=' Generated item: the numbers change every time, so it carries one worked explanation instead of a per-option breakdown.';
-  else if(q.src)h+=' Answer checked against <b>'+esc(q.src)+'</b>.';
-  h+='</p>';
-
-  h+='<div class="nextrow"><button class="btn" id="nx">'+(st.i+1>=tot?"See results":"Next")+'</button><span class="kbd-hint">Enter</span></div>';
+  if(ref)h+='<a class="srcbtn" href="'+ref.url+'" target="_blank" rel="noopener"><span class="sx"><span class="sl">Read the actual rule</span>'+esc(ref.cite)+'</span><span class="sa">→</span></a>';
+  h+='<p class="src">Concept <code>'+esc(q.gen?q.g:q.acs)+'</code>.'+(q.gen?' Generated item: the numbers change every time, so it carries one worked explanation instead of a per-option breakdown.':(q.src?' Answer checked against <b>'+esc(q.src)+'</b>.':''))+'</p>';
+  h+='</details></div>';
  }
- h+='</div></div>';
+ h+='</div>';
+ /* fixed action bar: the next step is always in the same place */
+ if(revealed)h+='<div class="qact show"><div class="qin"><button class="btn" id="nx">'+(st.i+1>=tot?"See results":"Next question")+'<span class="kbd-hint">Enter</span></button></div></div>';
+ else if(st.timed&&st.i===0)h+='<p class="qhint" style="text-align:center;margin:12px 0 0">No feedback until the end, like the real test. Each answer moves you on.</p>';
+ h+='</div>';
  return h;
 }
 
@@ -3068,7 +3159,18 @@ function vRef(){
  return h;
 }
 
+function errCard(err){
+ var msg=(err&&err.message)||String(err),stack=(err&&err.stack)||"";
+ return '<div class="col"><div class="call warnc" role="alert"><span class="stamp">Something broke while drawing this page</span><h3>'+esc(msg)+'</h3><p class="mut" style="font-family:var(--f-mono);font-size:11px;white-space:pre-wrap">'+esc(stack.split("\n").slice(0,4).join("\n"))+'</p><p>Send that message to the person who maintains this site. If the page keeps failing, the button below clears saved progress on this device and reloads.</p><div class="row"><button class="btn gh" id="resetall">Clear progress and reload</button></div></div></div>';
+}
 function render(){
+ try{renderInner()}catch(err){
+  try{nav()}catch(e2){}
+  var app=document.getElementById("app");if(app)app.innerHTML=errCard(err);
+  if(window.console)console.error(err);
+ }
+}
+function renderInner(){
  nav();
  var app=document.getElementById("app"),h="";
  if(st.mode)h=vRun();
@@ -3099,7 +3201,9 @@ function render(){
  h+='<footer class="foot"><div class="fl"><span class="fk">Sources</span><a href="'+SOURCES.CFR107.u+'" target="_blank" rel="noopener">14 CFR part 107</a><a href="'+SOURCES.ACS.u+'" target="_blank" rel="noopener">Remote Pilot ACS</a><a href="'+SOURCES.SG.u+'" target="_blank" rel="noopener">Study Guide</a><a href="'+SOURCES.SAMP.u+'" target="_blank" rel="noopener">Official sample questions</a><a href="'+SOURCES.CUG.u+'" target="_blank" rel="noopener">Chart User\'s Guide</a><a href="'+SOURCES.ADV0825.u+'" target="_blank" rel="noopener">Advisory Aug 2025</a><a href="'+SOURCES.ADV0426.u+'" target="_blank" rel="noopener">Apr 2026</a><a href="'+SOURCES.ADV0626.u+'" target="_blank" rel="noopener">Jun 2026</a><a href="'+SOURCES.STATS.u+'" target="_blank" rel="noopener">FAA test statistics</a></div>';
  h+='<p>The 48/25/20/5/2 blueprint comes from the PSI UAG Applicant Information Bulletin effective 29 September 2025, reproduced identically by two independent sources; the FAA advisory confirms the change without printing the numbers. High confidence, not certainty.</p>';
  h+='<p>P(pass) models your performance on this platform; it is not a validated real-world pass rate. A study aid, not an FAA product. Verify against the source before relying on anything here. Progress is stored in this browser only.</p></footer>';
- app.innerHTML=h;window.scrollTo(0,0);
+ var keep=st.keepScroll;st.keepScroll=0;
+ document.body.classList.toggle("quizmode",!!(st.mode&&st.i<st.order.length));
+ app.innerHTML=h;if(!keep){window.scrollTo(0,0);app.classList.remove("vt");void app.offsetWidth;app.classList.add("vt")}
  /* keyboard access for diagram hotspots: every tappable SVG group is a button */
  var hots=app.querySelectorAll("svg [data-hot]");
  for(var hi=0;hi<hots.length;hi++){var hg=hots[hi];if(hg.tagName==="BUTTON")continue;hg.setAttribute("tabindex","0");hg.setAttribute("role","button");if(!hg.getAttribute("aria-label"))hg.setAttribute("aria-label",hotLabel(hg))}
@@ -3132,16 +3236,17 @@ document.addEventListener("click",function(e){
  if(t.dataset.sub!==undefined&&!st.mode){go(st.view,t.dataset.sub);save();render();return}
  if(t.dataset.more!==undefined&&typeof moreAct==="function"){moreAct(t.dataset.more);return}
  if(t.dataset.mod!==undefined){st.mod=parseInt(t.dataset.mod,10);st.view="learn";st.mode=null;if(st.modSeen){st.modSeen[MODULES[st.mod].id]=1;save()}render();return}
- if(t.dataset.conf){st.conf=t.dataset.conf;render();return}
+ if(t.dataset.conf){st.conf=t.dataset.conf;st.keepScroll=1;render();return}
  if(t.dataset.drill){startSet(t.dataset.drill);return}
  if(t.id==="quit"){clearInterval(_clockT);st.mode=null;st.timed=0;go(st.view==="dash"?"practice":st.view);render();return}
- if(t.dataset.bm&&st.mode){toggleBookmark(st.order[st.i]);render();return}
+ if(t.dataset.bm&&st.mode){toggleBookmark(st.order[st.i]);st.keepScroll=1;render();return}
  if(t.dataset.unbm!==undefined){var bi=st.bookmarks.indexOf(parseInt(t.dataset.unbm,10));if(bi>=0)st.bookmarks.splice(bi,1);save();render();return}
  if(t.id==="timedtog"){st.timedPref=st.timedPref?0:1;save();render();return}
  if(t.dataset.pick!==undefined&&st.picked===null){answer(parseInt(t.dataset.pick,10));return}
  if(t.id==="nx"){nextQ();return}
  if(t.id==="setdate"){var v=document.getElementById("ed").value;if(v){st.examDate=v;save()}render();return}
  if(t.id==="cleardate"){st.examDate="";save();render();return}
+ if(t.id==="resetall"){try{localStorage.removeItem(LS)}catch(e){}location.reload();return}
  if(t.id==="fcprev"||t.id==="fcnext"||t.id==="fcshuf"||t.id==="fc"||t.closest("#fc")){
   var deck=fcDeck();
   if(t.id==="fcnext"){st.fcSeen[deck[st.fcIdx]]=1;st.fcIdx=(st.fcIdx+1)%deck.length;st.fcFlip=0}
@@ -3160,7 +3265,7 @@ document.addEventListener("click",function(e){
 function answer(pick){
  var q=st.order[st.i],ok=(pick===q.a);
  var ms=Date.now()-st.shownAt;
- st.picked=pick;st.answers[st.i]=ok;
+ st.picked=pick;st.answers[st.i]=ok;if(!st.picks)st.picks=[];st.picks[st.i]=pick;
  var key=conceptOf(q);
  var first=!st.seen[key+"#"+(q.gen?"g":q.idx)];
  st.seen[key+"#"+(q.gen?"g":q.idx)]=1;
@@ -3169,11 +3274,21 @@ function answer(pick){
  srsUpdate(st,key,ok,st.conf||"unsure");
  if(!ok&&st.conf==="certain"&&st.misconceptions.indexOf(key)<0)st.misconceptions.push(key);
  if(ok){var mi=st.misconceptions.indexOf(key);if(mi>=0)st.misconceptions.splice(mi,1)}
+ if(st.timed){ /* exam realism: no feedback during a timed run */
+  st.announce="Answer recorded.";save();st.i++;st.picked=null;st.conf=null;st.shownAt=Date.now();st.keepScroll=0;render();return;
+ }
  st.announce=(ok?"Correct. ":"Incorrect. The answer is "+"ABC".charAt(q.a)+". ")+String(q.e).replace(/<[^>]+>/g,"");
- save();render();
+ st.keepScroll=1;save();render();
+ /* bring the feedback into view only if it sits below the fold, by the smallest amount */
+ var fb=document.getElementById("fb");
+ if(fb){var r=fb.getBoundingClientRect(),room=window.innerHeight-(document.querySelector(".qact")?84:16);
+  /* scroll by the smallest amount that shows the verdict and explanation, keeping the chosen answer on screen when the screen allows */
+  var need=Math.min(r.bottom,r.top+250)-room;
+  if(need>0){var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+   window.scrollBy({top:need,behavior:reduce?"auto":"smooth"})}}
  if(typeof checkAch==="function")setTimeout(checkAch,250);
 }
-function nextQ(){st.i++;st.picked=null;st.conf=null;st.shownAt=Date.now();render()}
+function nextQ(){st.i++;st.picked=null;st.conf=null;st.shownAt=Date.now();st.keepScroll=0;render()}
 document.addEventListener("keydown",function(e){
  if(e.metaKey||e.ctrlKey||e.altKey)return;
  var tag=(e.target&&e.target.tagName)||"";
@@ -3348,6 +3463,7 @@ function ringSvg(p,cls){
    DASHBOARD
    ============================================================ */
 function vDash(){
+ if(!st.log.length&&!st.exams.length&&typeof vWelcome==="function")return vWelcome();
  var A=assess(st), NA=nextAction(st,A), i;
  var sk=streak(), xp=xpTotal(), lv=xpLevel(xp), due=dueCount(st);
  var cls=A.p>=0.97?"g":A.p>=0.85?"m":"r";
@@ -3362,6 +3478,10 @@ function vDash(){
  h+='<div style="min-width:0;flex:1 1 130px"><div class="tv" style="font-size:22px">P(pass)</div><div class="td">Beta posterior per area, 4,000 Monte Carlo draws. Thin or stale evidence widens the posterior and lowers this on its own.</div>';
  h+='<div class="row" style="margin-top:10px"><button class="btn gh" data-v="exams" data-sub="ready" style="width:auto">See the gate</button></div></div></div></div>';
 
+ /* continue where you stopped */
+ if(st.lastDrill&&st.lastDrill!==NA.drill){var ld=st.lastDrill,ldn={};for(i=0;i<AREAS.length;i++)ldn[AREAS[i].id]="Drill "+AREAS[i].name;
+  var LBL={diag:"Diagnostic",mis:"Misconceptions",srs:"Spaced review",full:"Full simulation",challenge:"Challenge simulation",validation:"Validation exam",faa:"FAA official 46",doc:"Subpart D drill",cram:"Cram set",mixed:"Mixed transfer",daily:"Daily challenge",figs:"Image-based questions",missed:"Missed questions",bm:"Bookmarks",weak:"Weak cells",chartgen:"Chart scenarios"};
+  h+='<div class="tile span3"><div class="tl">Continue</div><div class="tv" style="font-size:20px">'+esc(LBL[ld]||ldn[ld]||ld)+'</div><div class="td">Pick up the set you were last working in.</div><div class="row" style="margin-top:auto"><button class="btn gh" data-drill="'+esc(ld)+'" style="width:auto">Resume</button></div></div>';}
  /* next action */
  h+='<div class="tile hi span3" style="border-left:4px solid var(--accent)"><div class="tl" style="color:var(--accent)">Do this next</div>';
  h+='<div class="tv" style="font-size:22px">'+esc(NA.label)+'</div><div class="td">'+esc(NA.why)+'</div>';
@@ -5097,7 +5217,7 @@ function vAbout(){
  h+='<h3>How the content was made</h3><p>Every original question was written against the current text of 14 CFR parts 107, 89 and 48, the AIM, the Pilot\'s Handbook of Aeronautical Knowledge and the Aeronautical Chart User\'s Guide, then independently re-checked against those sources with the citation shown on the question. The 46 FAA sample questions are reproduced word for word; the FAA publishes no answer key, so those answers are ours and cited. Chart figures are pages from FAA-CT-8080-2H, a US Government work in the public domain. The exam blueprint figures come from the PSI UAG Applicant Information Bulletin effective 29 September 2025, which the FAA\'s August 2025 Airman Testing Community Advisory points to as the current blueprint. The Date Check tab lists every rule change we know of with its source.</p>';
  h+='<h3>Privacy</h3><p>There is no account, no tracking, no analytics and no server. Your progress is stored in this browser\'s local storage and nowhere else. The only thing that leaves your device is a request for the fonts, and the rule links you choose to open. A backup code is just your data encoded as text; share it only with people you want to see your numbers.</p>';
  h+='<h3>Mistakes</h3><p>If something here disagrees with the regulation, the regulation wins, and we want to know. Report it on the <a href="https://github.com/Vestr3/Part107/issues" target="_blank" rel="noopener">GitHub issues page</a> with the question text and the section you checked. The site is a single HTML file; anyone can read how it works.</p>';
- h+='<h3>Credits</h3><p>Built by Franco, a Part 107 candidate in Ocala, Florida, with Claude as the engineer and researcher. Fonts are B612 (designed for cockpit displays) and Instrument Sans, via Google Fonts. Sectional symbology follows the FAA Aeronautical Chart User\'s Guide. Build '+BUILD_DATE+'.</p>';
+ h+='<h3>Credits</h3><p>Built by a Part 107 candidate with Claude as the engineer and researcher. Fonts are B612 (designed for cockpit displays) and Instrument Sans, via Google Fonts. Sectional symbology follows the FAA Aeronautical Chart User\'s Guide. Build '+BUILD_DATE+'.</p>';
  h+='<div class="call slatec"><span class="stamp">Sources</span><ul class="lst">';
  for(var k in SOURCES)h+='<li><a href="'+SOURCES[k].u+'" target="_blank" rel="noopener">'+esc(SOURCES[k].n)+'</a> <span class="mut">('+esc(SOURCES[k].v)+')</span></li>';
  h+='</ul></div></div>';
@@ -5139,6 +5259,65 @@ function moreAct(k){
  if(k==="import"){var ib=document.getElementById("importbox");var r=importCode(ib?ib.value:"");st.syncMsg=r.msg;st.syncOk=r.ok;render();return}
  if(k==="result"){var el=document.getElementById("realscore");var v=parseInt(el&&el.value,10);if(isNaN(v)||v<0||v>60){st.syncMsg="Enter a score from 0 to 60.";st.syncOk=false;render();return}
   var A=assess(st);st.results.push({at:Date.now(),score:v,p:A.p,n:st.log.length});st.syncMsg="Recorded. Thank you; this is the data that makes the readiness number honest.";st.syncOk=true;save();render();return}
+}
+
+/* ============================================================
+   FIRST SCREEN and the flight-deck additions
+   A student with no evidence yet gets a composed welcome: the
+   aircraft, the one sentence that says what this is, and one
+   primary action. Everything drawn here is inline SVG, themed
+   through tokens, so it costs nothing to load.
+   ============================================================ */
+
+/* topographic contour field, used behind the hero */
+function heroContours(){
+ var s='',i;
+ var paths=["M-40 120 C 120 60, 260 200, 420 110 S 700 40, 900 140","M-40 190 C 140 140, 280 260, 460 170 S 720 110, 900 210","M-40 260 C 160 220, 300 320, 500 240 S 740 190, 900 280","M-40 50 C 100 10, 240 120, 380 60 S 640 -20, 900 70","M-40 330 C 180 300, 320 380, 540 310 S 760 270, 900 350"];
+ for(i=0;i<paths.length;i++)s+='<path d="'+paths[i]+'" fill="none" stroke="currentColor" stroke-width="1" opacity="'+(0.10-i*0.012).toFixed(3)+'"/>';
+ return s;
+}
+/* side-profile aircraft with a HUD ring and altitude tape */
+function heroAircraft(){
+ var s='';
+ s+='<g class="hud"><circle cx="300" cy="190" r="118" fill="none" stroke="var(--cyan)" stroke-width="1" opacity=".35"/><circle cx="300" cy="190" r="104" fill="none" stroke="var(--cyan)" stroke-width="1" opacity=".18" stroke-dasharray="2 6"/>';
+ for(var a=0;a<360;a+=30){var r1=a%90===0?108:112,x1=300+r1*Math.cos(a*Math.PI/180),y1=190+r1*Math.sin(a*Math.PI/180),x2=300+118*Math.cos(a*Math.PI/180),y2=190+118*Math.sin(a*Math.PI/180);s+='<line x1="'+x1.toFixed(1)+'" y1="'+y1.toFixed(1)+'" x2="'+x2.toFixed(1)+'" y2="'+y2.toFixed(1)+'" stroke="var(--cyan)" stroke-width="1.2" opacity=".5"/>'}
+ s+='<path d="M196 190 h40 M364 190 h40 M300 86 v18 M300 276 v18" stroke="var(--cyan)" stroke-width="1.5" opacity=".6"/></g>';
+ /* altitude tape, right */
+ s+='<g class="tape" font-family="var(--f-mono)" font-size="9" fill="currentColor" opacity=".55">';
+ for(var t=0;t<=8;t++){var y=90+t*25;s+='<line x1="470" y1="'+y+'" x2="'+(t%2?476:482)+'" y2="'+y+'" stroke="currentColor" stroke-width="1"/>';if(t%2===0)s+='<text x="488" y="'+(y+3)+'">'+(400-t*50)+'</text>'}
+ s+='<rect x="466" y="183" width="54" height="16" rx="3" fill="var(--accent)" opacity=".95"/><text x="493" y="195" font-size="9.5" text-anchor="middle" fill="var(--accent-ink)" font-weight="700" opacity="1">400</text></g>';
+ /* aircraft, three-quarter from the side: body, two visible arms, props as flat ellipses */
+ s+='<g class="craft" transform="translate(300 190) scale(1.3) translate(-300 -190)"><ellipse cx="300" cy="232" rx="96" ry="9" fill="currentColor" opacity=".08"/>';
+ s+='<path d="M228 184 L270 194 M372 184 L330 194" stroke="currentColor" stroke-width="7" stroke-linecap="round"/>';
+ s+='<ellipse cx="226" cy="181" rx="36" ry="7" fill="var(--cyan)" opacity=".22"/><ellipse cx="374" cy="181" rx="36" ry="7" fill="var(--cyan)" opacity=".22"/>';
+ s+='<ellipse cx="226" cy="181" rx="36" ry="7" fill="none" stroke="var(--cyan)" stroke-width="1" opacity=".5"/><ellipse cx="374" cy="181" rx="36" ry="7" fill="none" stroke="var(--cyan)" stroke-width="1" opacity=".5"/>';
+ s+='<rect x="221" y="181" width="10" height="9" rx="3" fill="currentColor"/><rect x="369" y="181" width="10" height="9" rx="3" fill="currentColor"/>';
+ s+='<path d="M268 188 Q300 178 332 188 L334 204 Q300 214 266 204 Z" fill="var(--ink)" stroke="var(--line2)" stroke-width="1"/>';
+ s+='<path d="M272 192 Q300 184 328 192" fill="none" stroke="var(--cyan)" stroke-width="1" opacity=".7"/>';
+ s+='<rect x="292" y="206" width="16" height="10" rx="3" fill="var(--surface3)" stroke="var(--line2)"/><circle cx="300" cy="211" r="3" fill="var(--cyan)"/>';
+ s+='<circle cx="256" cy="200" r="2.2" fill="var(--no)"><animate attributeName="opacity" values="1;.1;1" dur="1.2s" repeatCount="indefinite"/></circle><circle cx="344" cy="200" r="2.2" fill="var(--ok)"><animate attributeName="opacity" values="1;.1;1" dur="1.2s" begin=".6s" repeatCount="indefinite"/></circle>';
+ s+='</g>';
+ return s;
+}
+function heroSvg(){
+ return '<svg class="herosvg" viewBox="0 0 560 380" role="img" aria-label="A small unmanned aircraft framed by a heads-up display ring and an altitude tape reading 400 feet">'+heroContours()+heroAircraft()+'</svg>';
+}
+function vWelcome(){
+ var tr=trainPool(null).length,gens=GEN.length,figs=0;for(var i=0;i<QB.length;i++)if(QB[i][9])figs++;
+ var h='<section class="welcome"><div class="wtext"><p class="eyebrow">FAA Part 107 · Remote Pilot knowledge test</p>';
+ h+='<h1 class="wh1">Know when you are ready.<br>Not when you feel ready.</h1>';
+ h+='<p class="lede">Every question explained choice by choice and linked to the rule. The real FAA chart figures on screen. A readiness number built from your evidence, not your mood.</p>';
+ h+='<div class="row wcta"><button class="btn lg" data-drill="diag">Take the 21-question diagnostic</button><button class="btn gh lg" data-v="lab">Explore the Lab</button></div>';
+ h+='<p class="wnote">Free. No account. Progress stays in this browser. Not an FAA product.</p></div>';
+ h+='<div class="wart">'+heroSvg()+'</div></section>';
+ /* three real feature previews, drawn from the live app rather than mockups */
+ h+='<section class="wfeat">';
+ h+='<article><span class="fk">Questions</span><h3>'+tr+' written, '+gens+' generators</h3><p>Three choices, each one explained. The rule in one line. A link to the section on eCFR. '+figs+' show the actual FAA testing-supplement figures.</p><button class="btn gh sm" data-v="practice">See the drills</button></article>';
+ h+='<article><span class="fk">Readiness</span><h3>A probability, not a score</h3><p>Beta posteriors per exam area, 4,000 Monte Carlo draws against the real 60-question blueprint, and an 11-check gate stricter than the 70% pass mark.</p><button class="btn gh sm" data-v="exams" data-sub="ready">How it works</button></article>';
+ h+='<article><span class="fk">Lab and missions</span><h3>Learn it by touching it</h3><p>Airspace you can place yourself in, weather you can change with sliders, a drone you can tilt, and five missions where every decision has the regulation as its consequence.</p><button class="btn gh sm" data-v="practice" data-sub="missions">Fly a mission</button></article>';
+ h+='</section>';
+ h+='<section class="wstrip"><div><b>26 Oct 2026</b><span>Chart images move on screen. The Chart Lab is built for it.</span></div><div><b>48%</b><span>of the exam is Regulations. Drill it first.</span></div><div><b>UA.I.E.K13</b><span>Declaration of Compliance, the most-missed code. There is a drill for that too.</span></div></section>';
+ return h;
 }
 
 render();
