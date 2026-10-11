@@ -2,7 +2,7 @@
 
 A free, open study platform for the FAA Part 107 remote pilot knowledge test (UAG). One HTML file, no account, no server, works offline once loaded, installs to a phone home screen.
 
-**Live site:** https://vestr3.github.io/Part107/
+**Live site:** https://vestr3.github.io/Part107FAA/
 
 ## What is in it
 
@@ -32,11 +32,11 @@ No tracking, no analytics, no server. Progress is stored in your browser's local
 
 ## Running it yourself
 
-Open `index.html`. For GitHub Pages, the repo needs `index.html`, `manifest.webmanifest`, `sw.js`, the four icon PNGs and the `figs/` folder at the root.
+Open `index.html`. For GitHub Pages, the repo needs `index.html`, `404.html`, `manifest.webmanifest`, `sw.js`, the four icon PNGs and the `figs/` folder at the root. Service workers and offline figures need http(s); opening the file directly works but does not install.
 
 ## Reporting a mistake
 
-If something disagrees with the regulation, the regulation wins. Open an issue with the question text and the section you checked.
+If something disagrees with the regulation, the regulation wins. Open an issue at https://github.com/Vestr3/Part107FAA/issues with the question text and the section you checked.
 
 ## License
 
