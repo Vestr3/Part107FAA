@@ -810,6 +810,7 @@ input[type=range]{width:100%;accent-color:var(--accent);height:32px;touch-action
 @keyframes poseRoll{from{transform:none}to{transform:perspective(500px) rotateY(38deg)}}
 .anat{display:grid;gap:14px}
 @media(min-width:760px){.anat{grid-template-columns:1.2fr 1fr;align-items:start}}
+.anat .svgwrap{padding:4px}
 
 /* daily */
 .daily{background:linear-gradient(135deg,var(--surface),var(--cyan-soft));border:1px solid var(--cyan);border-radius:var(--r3);padding:18px 20px;margin:18px 0;box-shadow:var(--sh2)}
@@ -1792,7 +1793,7 @@ var ACS=[
          1 = VALIDATION (protected; never served outside readiness exams)
    difficulty: 1 basic recall · 2 applied · 3 transfer/trap
    ============================================================ */
-var QB=[];var __QB_URL="qb.json?v=26b02fb67c39";var __QN={"train": 308, "figs": 28};
+var QB=[];var __QB_URL="qb.json?v=a003d1a37db2";var __QN={"train": 308, "figs": 28};
 
 /* ============================================================
    GENERATORS — parameterized items. Memorizing an instance
@@ -2260,7 +2261,7 @@ var FIGS={
  "24":{f:"fig24.jpg",t:"Sectional chart excerpt",k:"chart",w:1022,h:1492},
  "25":{f:"fig25.jpg",t:"Sectional chart excerpt",k:"chart",w:1023,h:1491},
  "26":{f:"fig26.jpg",t:"Sectional chart excerpt",k:"chart",w:1023,h:1492},
- "27":{f:"fig27.jpg",t:"Time conversion table",k:"ref",w:964,h:1492},
+ "27":{f:"fig27.jpg",t:"Time conversion table",k:"ref",w:1492,h:964},
  "31":{f:"fig31.jpg",t:"Chart Supplement excerpt",k:"supp",w:969,h:1492},
  "50":{f:"fig50.jpg",t:"Wind sock and landing indicator",k:"apt",w:1043,h:1491},
  "59":{f:"fig59.jpg",t:"Sectional chart excerpt",k:"chart",w:1026,h:1492},
@@ -2274,7 +2275,7 @@ var FIGS={
  "77":{f:"fig77.jpg",t:"Chart Supplement excerpt",k:"supp",w:971,h:1491},
  "78":{f:"fig78.jpg",t:"Sectional chart excerpt",k:"chart",w:1023,h:1492},
  "80":{f:"fig80.jpg",t:"Sectional chart excerpt",k:"chart",w:1023,h:1491},
- "L1":{f:"legend01.jpg",t:"Sectional chart legend, page 1",k:"legend",w:1005,h:1492},
+ "L1":{f:"legend01.jpg",t:"Sectional chart legend, page 1",k:"legend",w:1492,h:1005},
  "L2":{f:"legend02.jpg",t:"Sectional chart legend, page 2",k:"legend",w:836,h:1297}
 };
 /* Teaching callouts: rectangles in the JPEG's own pixels [x1,y1,x2,y2], each checked by eye
@@ -7171,7 +7172,7 @@ m2:{t:"Weather Go / No-Go",art:"wx",max:140,phases:[["brief","Brief"],["dawn","D
   c:[{t:"Launch now and plan to be down by 14:30, half an hour before the TEMPO window opens at 15:00. If towering cumulus builds early, land immediately.",o:"good",r:"The forecast gives a usable window before 20Z, which is 15:00 local: 13:30 plus 45 minutes is 14:15, with margin to spare. TEMPO means the condition is expected for less than half the period but can start early; cumulus towers are your visual warning. Plan the swap so both flights finish before the window."},
      {t:"Launch at 14:30 after lunch. TEMPO means it probably will not happen.",o:"bad",r:"TEMPO means temporary fluctuations expected to last less than an hour at a time, not unlikely. Launching into the forecast window with thunderstorms is a preflight assessment failure under § 107.49."},
      {t:"Cancel. Any forecast with TS in it is an automatic no-go for the whole day.",o:"meh",r:"Safe, but it throws away a 90 minute window before 15:00 and the clear evening the forecast gives from 19:00 local. Reading the TAF properly is the skill; the forecast tells you when, not just whether."}]},
- w5:{ph:"storm",type:"choice",q:"14:00, second battery in. To the southwest a cumulus tower has gone dark at the base and you see the first rain shaft reach the ground. Which stage is that storm in, and what does it mean for you?",rule:"PHAK 12",
+ w5:{ph:"storm",type:"choice",q:"14:00, second battery in. To the southwest a cumulus tower has gone dark at the base and you see the first rain shaft reach the ground. Which stage is that storm in, and what does it mean for you?",rule:"PHAK 12 p22",
   c:[{t:"Mature stage. Precipitation reaching the ground marks it, and the gust front, downdrafts and worst turbulence arrive with it. Land now.",o:"good",r:"Cumulus stage is updrafts only. The mature stage begins when precipitation reaches the surface and brings downdrafts, gust fronts that can run 15 miles ahead, and the strongest turbulence. Dissipating is downdrafts throughout."},
      {t:"Cumulus stage, so there is time to finish the second flight.",o:"bad",r:"Rain reaching the ground is the definition of the mature stage. The gust front may already be moving toward you."},
      {t:"Dissipating stage; the worst is over.",o:"bad",r:"Dissipating is the end, dominated by downdrafts after the rain has fallen. A storm with rain just starting to fall is at its most dangerous."}]},
@@ -7179,7 +7180,7 @@ m2:{t:"Weather Go / No-Go",art:"wx",max:140,phases:[["brief","Brief"],["dawn","D
   c:[{t:"Command an immediate return and land at the nearest safe spot, into the wind, even if it is not the launch point.",o:"good",r:"That is the gust front. Wind shear near the ground is the hazard that kills light aircraft. Get it on the ground now, anywhere safe; the launch point is a preference, not a rule. § 107.19 puts the decision and the responsibility on you."},
      {t:"Hold position and wait for the gust to pass.",o:"bad",r:"A gust front is not a gust. It is the leading edge of the storm's outflow and the wind behind it gets worse, with rain and possibly hail following."},
      {t:"Climb to 400 ft to get above the turbulence.",o:"bad",r:"Turbulence from a gust front extends well above 400 ft, and climbing moves you into the storm's inflow and away from the ground you need to reach."}],freeze:1},
- w7:{ph:"storm",type:"choice",q:"Down safely. Lightning is now within a few miles. The client asks you to relaunch as soon as the rain stops, because the sky behind looks clear.",rule:"PHAK 12",
+ w7:{ph:"storm",type:"choice",q:"Down safely. Lightning is now within a few miles. The client asks you to relaunch as soon as the rain stops, because the sky behind looks clear.",rule:"PHAK 12 p25",
   c:[{t:"Wait until the storm has moved well past and lightning is no longer within range. Clear sky behind a storm often means the gust front and downdrafts have just passed through, not that they are finished.",o:"good",r:"The dissipating stage still produces downdrafts, and a second cell can follow the first. Lightning risk alone keeps you and your crew under cover. The forecast's clear evening is your window."},
      {t:"Relaunch the moment the rain stops.",o:"bad",r:"Rain stopping does not end the storm. Downdrafts, outflow winds and lightning continue in the dissipating stage."},
      {t:"Relaunch but stay below 100 ft to be safe.",o:"bad",r:"Altitude does not protect you from gust fronts or lightning. Low is where the shear is worst."}]}
@@ -7206,7 +7207,7 @@ m3:{t:"Night Operation",art:"night",max:160,phases:[["brief","Brief"],["rules","
   c:[{t:"Land now, tell the deputy the light does not meet § 107.29, and relaunch only once a 3 SM anti-collision light is fitted.",o:"good",r:"Stopping the violation comes first. The deputy may ask for your certificate under § 107.7; a compliant light, not a lower altitude, is what makes the flight legal again."},
      {t:"Keep flying. The light is on, so the rule is met.",o:"bad",r:"§ 107.29 does not ask for a light, it asks for one visible for 3 statute miles. A 2 mile strobe fails it every second it is airborne."},
      {t:"Switch the strobe off so the complaints stop.",o:"bad",r:"No anti-collision light at all during civil twilight or night is a plainer § 107.29 violation, and the remote PIC may reduce intensity only in the interest of safety."}]},
- n5:{ph:"flight",type:"choice",q:"Compliant light fitted. It is fully dark and your eyes have adjusted. A floodlight on the square snaps on next to you. What is the vision problem?",rule:"PHAK 17",
+ n5:{ph:"flight",type:"choice",q:"Compliant light fitted. It is fully dark and your eyes have adjusted. A floodlight on the square snaps on next to you. What is the vision problem?",rule:"AFH 11 p1",
   c:[{t:"Dark adaptation takes about 30 minutes and a bright light undoes it in seconds. Avoid looking at bright lights, use dim red light at the control station, and look slightly to the side of the aircraft to use the rods.",o:"good",r:"The rods take roughly 30 minutes to adapt fully and lose it almost instantly. They sit outside the fovea, so off-centre viewing shows a dim aircraft better than staring straight at it."},
      {t:"Nothing. The camera feed is what matters at night.",o:"bad",r:"VLOS applies at night, § 107.31. Your eyes are the instrument and the exam tests how they work in the dark."},
      {t:"Stare directly at the aircraft to keep it in focus.",o:"bad",r:"Direct vision uses the cones, which are poor in the dark. Off-centre viewing uses the rods."}]},
@@ -7214,7 +7215,7 @@ m3:{t:"Night Operation",art:"night",max:160,phases:[["brief","Brief"],["rules","
   c:[{t:"Bring it back now until you can see its attitude and direction, not just a light.",o:"good",r:"§ 107.31 requires seeing the aircraft well enough to know its location, attitude, altitude and direction of flight and to watch the airspace around it. A dot of light fails that test even though you can see it."},
      {t:"Hold position. Seeing the strobe is line of sight.",o:"bad",r:"Seeing a light is not seeing the aircraft well enough to judge attitude and direction. § 107.31(a) lists what you must be able to determine."},
      {t:"Use the camera feed to orient it and continue.",o:"bad",r:"A camera feed is not visual line of sight. First person view is permitted only with a visual observer who keeps unaided VLOS."}],freeze:1},
- n7:{ph:"flight",type:"choice",q:"Low over the trees to the east you see a steady red light on your left and a green light on your right, with a white light between them, slowly drifting. What is it doing?",rule:"PHAK 17",
+ n7:{ph:"flight",type:"choice",q:"Low over the trees to the east you see a steady red light on your left and a green light on your right, with a white light between them, slowly drifting. What is it doing?",rule:"AFH 11 p6",
   c:[{t:"A manned aircraft flying away from you. Its red left-wing light is on your left, so you are seeing its tail. Watch it, but it is not a conflict yet.",o:"good",r:"Aircraft carry red on the left wingtip, green on the right, white at the tail. If red appears on your left and green on your right, you are behind it. Red on your right and green on your left means it is coming toward you."},
      {t:"A manned aircraft heading straight at you. Descend immediately.",o:"meh",r:"Descending clear of any manned aircraft is never wrong under § 107.37, but the lights say it is moving away. Red on your right and green on your left would be the head-on picture."},
      {t:"A police drone. Ignore it.",o:"bad",r:"Never assume. Steady red, green and white in that arrangement is the standard manned-aircraft lighting pattern."}]},
@@ -7374,7 +7375,10 @@ function rmAct(k,v){
 }
 function rmRule(sec){
  if(/^\d+\.\d+$/.test(sec)){var part=sec.split(".")[0];if(part==="107")return {l:"14 CFR "+sec,u:ecfr(sec)};if(part==="89"){var n89=parseInt(sec.split(".")[1],10),sp=n89<100?"A":"ABCDEF".charAt(Math.floor(n89/100));return {l:"14 CFR "+sec,u:"https://www.ecfr.gov/current/title-14/chapter-I/subchapter-F/part-89/subpart-"+sp+"/section-"+sec}}}
- if(sec.indexOf("PHAK")===0)return {l:"Pilot's Handbook of Aeronautical Knowledge, ch. "+sec.split(" ")[1],u:"https://www.faa.gov/regulations_policies/handbooks_manuals/aviation/phak"};
+ /* handbook rules deep link to the chapter PDF and, when given, the page: "PHAK 12 p22", "AFH 11 p6" */
+ var hm=sec.match(/^(PHAK|AFH) (\d+)(?: p(\d+))?$/);
+ if(hm){var hc=+hm[2],hp=hm[3]?+hm[3]:0,hu=hm[1]==="PHAK"?"https://www.faa.gov/sites/faa.gov/files/"+(hc+2<10?"0":"")+(hc+2)+"_phak_ch"+hc+".pdf":"https://www.faa.gov/sites/faa.gov/files/regulations_policies/handbooks_manuals/aviation/airplane_handbook/"+(hc+1<10?"0":"")+(hc+1)+"_afh_ch"+hc+".pdf";
+  return {l:(hm[1]==="PHAK"?"Pilot's Handbook of Aeronautical Knowledge":"Airplane Flying Handbook")+", ch. "+hc+(hp?", p. "+hc+"-"+hp:""),u:hu+(hp?"#page="+hp:"")}}
  return {l:sec,u:SOURCES.CFR107.u};
 }
 function rmHud(r,d){
@@ -7641,12 +7645,34 @@ function txStick(side,active,lbl){
   h+='<button class="'+d+(active&&active.k===c.k?" on":"")+'" data-ls="ctrl" data-val="'+c.k+'" aria-label="'+esc(c.n)+'">'+dirs[d]+'</button>';}
  return h+'<span class="lbl">'+lbl+'</span></div>';
 }
+/* Top view of a quad for the stick drill. Motor layout and spin match CTRL: front left CCW,
+   front right CW, rear right CCW, rear left CW. Motors that speed up for the pose glow orange.
+   Text sizes are inline style (R-04) so they render at 12 px or more on a 320 px phone (the svgwrap padding is trimmed in theme.css). */
+function lessonDrone(pose){
+ var cx=150,cy=150,a=62,s='',lbl='';
+ var mp=[[cx-a,cy-a,"CCW"],[cx+a,cy-a,"CW"],[cx+a,cy+a,"CCW"],[cx-a,cy+a,"CW"]];
+ var boost={pitch:[2,3],pitchback:[0,1],roll:[0,3],rollleft:[1,2],yaw:[1,3],yawright:[0,2],climb:[0,1,2,3]}[pose]||[];
+ var tx=function(x,y,t,sz,fill,wt,anc){return '<text x="'+x+'" y="'+y+'" text-anchor="'+(anc||"middle")+'" style="font-size:'+sz+'px;font-weight:'+(wt||600)+';fill:'+fill+'">'+t+'</text>'};
+ s+='<g class="frame pose-'+pose+'">';
+ s+='<path d="M'+(cx-a)+' '+(cy-a)+' L'+(cx+a)+' '+(cy+a)+' M'+(cx+a)+' '+(cy-a)+' L'+(cx-a)+' '+(cy+a)+'" stroke="currentColor" stroke-width="10" stroke-linecap="round" opacity=".85"/>';
+ for(var i=0;i<4;i++){var m=mp[i],hot=boost.indexOf(i)>=0;
+  s+='<circle cx="'+m[0]+'" cy="'+m[1]+'" r="33" fill="var(--cyan)" opacity="'+(hot?".38":".12")+'" stroke="var(--cyan)" stroke-dasharray="4 3"/>';
+  s+='<circle cx="'+m[0]+'" cy="'+m[1]+'" r="10" fill="'+(hot?"var(--accent)":"currentColor")+'"/><path d="M'+(m[0]-30)+' '+m[1]+' Q'+m[0]+' '+(m[1]-10)+' '+(m[0]+30)+' '+m[1]+' Q'+m[0]+' '+(m[1]+10)+' '+(m[0]-30)+' '+m[1]+'" fill="currentColor" opacity="'+(hot?".5":".3")+'" transform="rotate('+(i%2?45:-45)+' '+m[0]+' '+m[1]+')"/>';
+  lbl+=tx(m[0],m[1]+(m[1]<cy?-43:57),m[2]+(hot?" · faster":""),16,hot?"var(--accent)":"currentColor",hot?700:500);
+ }
+ s+='<rect x="'+(cx-28)+'" y="'+(cy-27)+'" width="56" height="54" rx="12" fill="var(--surface)" stroke="currentColor" stroke-width="2"/>';
+ s+='<path d="M'+(cx-12)+' '+(cy-8)+' L'+cx+' '+(cy-22)+' L'+(cx+12)+' '+(cy-8)+'" fill="none" stroke="var(--accent)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>';
+ s+='<rect x="'+(cx-18)+'" y="'+(cy+4)+'" width="36" height="14" rx="3" fill="currentColor" opacity=".55"/>';
+ s+='</g>';
+ lbl+=tx(cx,20,"▲ Front",16,"currentColor",700);
+ return svgWrap(s+lbl,"0 0 300 286","Top view of a quadcopter. Motors that speed up for the selected stick input are highlighted.");
+}
 INTER.controls=function(){
  var s=lsState("controls",function(){return {pose:"level",task:null,order:shuf(CTRL.map(function(x,i){return i})),i:0,pick:null,right:0,n:0}});
  var cur=CTRL.filter(function(x){return x.k===s.pose})[0];
  var h='<div class="lesson" data-lesson="controls"><div class="lshead"><span class="lstag">Hands on</span><h3>Fly it from the sticks</h3></div>';
  h+='<p class="mut">A Mode 2 transmitter, the US default: left stick is throttle and yaw, right stick is pitch and roll. Tap any direction and watch which motors work harder.</p>';
- h+='<div class="anat"><div>'+svgDrone(null,s.pose)+'</div><div class="txwrap"><div class="tx">'+txStick("L",cur&&cur.stick==="L"?cur:null,"throttle · yaw")+txStick("R",cur&&cur.stick==="R"?cur:null,"pitch · roll")+'</div></div></div>';
+ h+='<div class="anat"><div>'+lessonDrone(s.pose)+'</div><div class="txwrap"><div class="tx">'+txStick("L",cur&&cur.stick==="L"?cur:null,"throttle · yaw")+txStick("R",cur&&cur.stick==="R"?cur:null,"pitch · roll")+'</div></div></div>';
  if(cur)h+='<div class="rulebox"><span class="rl2">'+esc(cur.n)+' · '+esc(cur.ax)+'</span><p style="font-weight:400">'+cur.d+'</p></div>';
  else h+='<p class="mut">Level hover: all four motors equal, torques cancel.</p>';
  if(!s.started)return h+'<div class="row"><button class="btn" data-ls="ctrl-start">Start the drill</button></div></div>';

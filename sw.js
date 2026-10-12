@@ -4,9 +4,9 @@
    Figures: a separate cache keyed to the figure files, filled one at a time when the page
    is idle (the page skips this on Save-Data), so they work offline before first view.
    Precache failures are logged and retried on activate and on every page load. */
-var V = "p107-9d08febfc4d8";
-var FV = "p107-figs-d0e9d48a7be1";
-var ASSETS = ["./","./index.html","./manifest.webmanifest","./qb.json?v=26b02fb67c39",
+var V = "p107-400d526b53d4";
+var FV = "p107-figs-f47105026f2d";
+var ASSETS = ["./","./index.html","./manifest.webmanifest","./qb.json?v=a003d1a37db2",
               "./icon-192.png","./icon-512.png","./icon-maskable.png","./apple-touch-icon.png"];
 var FIGS = ["fig02.jpg", "fig08.jpg", "fig12.jpg", "fig15.jpg", "fig20.jpg", "fig21.jpg", "fig22.jpg", "fig23.jpg", "fig24.jpg", "fig25.jpg", "fig26.jpg", "fig27.jpg", "fig31.jpg", "fig50.jpg", "fig59.jpg", "fig64.jpg", "fig69.jpg", "fig70.jpg", "fig71.jpg", "fig74.jpg", "fig75.jpg", "fig76.jpg", "fig77.jpg", "fig78.jpg", "fig80.jpg", "legend01.jpg", "legend02.jpg"].map(function(f){ return "./figs/" + f; });
 
