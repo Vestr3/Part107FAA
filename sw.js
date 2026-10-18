@@ -4,7 +4,7 @@
    Figures: a separate cache keyed to the figure files, filled one at a time when the page
    is idle (the page skips this on Save-Data), so they work offline before first view.
    Precache failures are logged and retried on activate and on every page load. */
-var V = "p107-186f31a9c209";
+var V = "p107-7ecb33094b8b";
 var FV = "p107-figs-f47105026f2d";
 var ASSETS = ["./","./index.html","./manifest.webmanifest","./qb.json?v=a003d1a37db2",
               "./icon-192.png","./icon-512.png","./icon-maskable.png","./apple-touch-icon.png"];

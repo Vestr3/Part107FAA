@@ -1224,8 +1224,27 @@ h2.h3{font-size:20px;margin:28px 0 8px}
 @media(pointer:coarse){
   .subnav{padding-top:10px}
   .subnav button{min-height:44px}
+  .quiz .cbtn,.quiz .chip{min-height:44px}
+  .bmbtn{width:44px;height:44px}
   .foot .fl a{display:inline-flex;align-items:center;min-height:44px}
 }
+
+/* SIG-01: readiness card on phones. The ring and the text no longer share one cramped row: the ring
+   sits above a full-width text column, the ring keeps its desktop size so the estimate is readable. */
+@media(max-width:560px){
+  .tile.hi .ringrow{flex-direction:column;align-items:flex-start;gap:12px}
+  .tile.hi .ring{width:128px;height:128px}
+  .tile.hi .ring .rv{font-size:25px}
+  .tile.hi .ring .rv.rng{font-size:16.5px;padding:0 12px}
+  .tile.hi .ring .rv.none{font-size:13.5px}
+  .tile.hi .ringrow>div:last-child{flex:1 1 auto;width:100%}
+  .tile.hi .ringrow .tv{font-size:21px !important}
+}
+/* SIG-02: mission quit confirmation sits inside the HUD, under the phase bar */
+.m1hud .mqc{margin:10px 0 0}
+.m1hud .mqc .btn{min-height:44px}
+/* SIG-03: in the quiz the toast sits under the quiz bar instead of over the progress counter */
+.quizmode .toast{top:calc(62px + env(safe-area-inset-top,0px))}
 
 /* ============================================================
    LAB KIT · stage, labels, controls, explain and predict cards
@@ -2214,6 +2233,235 @@ h2.h3{font-size:20px;margin:28px 0 8px}
   .figov .figbar .fz{order:2;flex:1 1 100%;justify-content:flex-end}
 }
 
+/* ============================================================
+   SKY ATLAS × FLIGHT DECK · shared presentation system (WP2)
+   A navy flight-deck band carries each page's instrument (hero,
+   readiness); warm-white atlas surfaces carry the reading. Tokens
+   first, then components: band, readouts, route, feature rows,
+   entry panels. Dark theme keeps the band one step lighter than
+   the page so it still reads as a surface.
+   ============================================================ */
+:root{
+  --navy:#0B1524; --navy2:#111E33; --navy-line:rgba(141,170,208,.18);
+  --on-navy:#E9EFF8; --on-navy2:#B6C4D9; --on-navy-dim:#8597B2;
+  --deck-cyan:#5FD1EC; --deck-orange:#F2A33A;
+  --atlas:#FBF9F4; --atlas2:#F3EFE6; --atlas-line:#E3DED2;
+  --bg:#F7F5F0; --bg2:#EFEBE2;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--navy:#0A1322;--navy2:#0F1B2E;--atlas:#0F172A;--atlas2:#141E33;--atlas-line:#22304A;--bg:#070C16;--bg2:#0B1221}}
+:root[data-theme="dark"]{--navy:#0A1322;--navy2:#0F1B2E;--atlas:#0F172A;--atlas2:#141E33;--atlas-line:#22304A;--bg:#070C16;--bg2:#0B1221}
+body{background-image:none}
+
+/* ---------- the band: full bleed navy with a faint chart grid and contour ---------- */
+.fd-band{position:relative;color:var(--on-navy);background:var(--navy);margin:0 calc(50% - 50vw);padding:0;isolation:isolate;overflow:hidden}
+.fd-band::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background-image:linear-gradient(var(--navy-line) 1px,transparent 1px),linear-gradient(90deg,var(--navy-line) 1px,transparent 1px);
+  background-size:48px 48px;mask-image:radial-gradient(120% 90% at 70% 40%,#000 30%,transparent 100%);-webkit-mask-image:radial-gradient(120% 90% at 70% 40%,#000 30%,transparent 100%);opacity:.5}
+.fd-band::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(60% 80% at 85% 20%,rgba(95,209,236,.10),transparent 60%),radial-gradient(50% 60% at 10% 100%,rgba(242,163,58,.08),transparent 60%)}
+.fd-in{max-width:1100px;margin:0 auto;padding-inline:20px}
+.fd-band .eyebrow{color:var(--deck-cyan)}
+.fd-band h1,.fd-band h2,.fd-band h3{color:var(--on-navy)}
+.fd-band .lede{color:var(--on-navy2)}
+.fd-band .wnote,.fd-band .td{color:var(--on-navy-dim)}
+.fd-band .tl{color:var(--on-navy-dim)}
+.fd-band .tv{color:var(--on-navy)}
+.fd-dim{color:var(--on-navy2)}
+.btn.fd-ghost{border-color:rgba(233,239,248,.35);color:var(--on-navy)}
+.btn.fd-ghost:hover{border-color:var(--deck-cyan);color:var(--deck-cyan)}
+.fd-band .btn:not(.gh){background:var(--deck-orange);color:#1A1206;box-shadow:0 8px 24px -10px rgba(242,163,58,.7)}
+.fd-band .btn:not(.gh):hover{filter:brightness(1.05)}
+
+/* ---------- instrument readouts along a band's lower edge ---------- */
+.fd-readouts{list-style:none;margin:0;padding:18px 0 22px;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px 24px;border-top:1px solid var(--navy-line)}
+.fd-readouts li{display:flex;flex-direction:column;gap:2px;min-width:0}
+.fd-readouts b{font-family:var(--f-mono);font-size:26px;font-weight:700;line-height:1;color:var(--on-navy);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.fd-readouts span{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--on-navy-dim)}
+.fd-readouts li.w b{color:var(--deck-orange)}
+
+/* ---------- homepage hero ---------- */
+.welcome.fd-hero{display:block;padding:0;gap:0}
+.fd-hero>.fd-in:first-child{display:grid;gap:28px;align-items:center;padding-top:44px;padding-bottom:28px}
+@media(min-width:900px){.fd-hero>.fd-in:first-child{grid-template-columns:1.05fr .95fr;gap:48px;padding-top:64px;padding-bottom:36px}}
+.fd-hero .wh1{font-size:clamp(34px,5.6vw,64px);line-height:1.02;letter-spacing:-.03em;margin:0 0 18px;max-width:13ch;color:var(--on-navy)}
+.fd-hero .lede{font-size:clamp(16.5px,1.5vw,19px);max-width:46ch;margin-bottom:24px}
+.fd-hero .wcta{gap:12px}
+.fd-hero .wnote{margin-top:16px}
+.fd-hero .wart{order:0;display:flex;justify-content:center}
+.fd-hero .herosvg{color:var(--on-navy);filter:drop-shadow(0 24px 40px rgba(0,0,0,.45));width:100%;height:auto;max-width:560px}
+.fd-hero .herosvg .hud circle,.fd-hero .herosvg .ladder{opacity:1}
+@media(max-width:899px){
+  .fd-hero>.fd-in:first-child{padding-top:26px;padding-bottom:18px;gap:14px}
+  .fd-hero .wart{order:2;margin-top:4px}
+  .fd-hero .herosvg{height:170px;width:auto;max-width:100%}
+  .fd-hero .wcta .btn{width:100%}
+  .fd-hero .wnote{margin-top:10px}
+}
+.fd-band .eyebrow::before{background:var(--deck-cyan)}
+
+/* ---------- sections on the atlas ---------- */
+.fd-sec{padding:34px 0 8px}
+.fd-head{max-width:64ch}
+.fd-head h2{font-size:clamp(24px,3vw,34px);letter-spacing:-.02em;margin:0 0 8px}
+.fd-sub{color:var(--ink2);font-size:16px;margin:0}
+/* the route: five waypoints on a line, weighted bars beneath */
+.fd-route{list-style:none;margin:22px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;position:relative}
+.fd-route::before{content:"";position:absolute;left:10px;right:10px;top:9px;height:2px;background:var(--line)}
+.fd-route li{position:relative;padding:0 14px 0 0;min-width:0;display:flex;flex-direction:column;gap:4px}
+.fd-route .wp{width:20px;height:20px;border-radius:50%;background:var(--bg);border:2.5px solid var(--cyan);display:block;margin-bottom:10px;position:relative;z-index:1}
+.fd-route li:first-child .wp{background:var(--accent);border-color:var(--accent)}
+.fd-route b{font-size:14.5px;line-height:1.25}
+.fd-route .ro{font-family:var(--f-mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.fd-route .fdb{display:block;height:8px;border-radius:99px;background:var(--surface3);overflow:hidden;margin-top:6px;max-width:130px;border:1px solid var(--line2)}
+.fd-route .fdb span{display:block;height:100%;background:var(--cyan);border-radius:99px}
+.fd-route li:first-child .fdb span{background:var(--accent)}
+@media(max-width:640px){
+  .fd-route{grid-template-columns:1fr;gap:0;padding-left:30px}
+  .fd-route::before{left:9px;right:auto;top:10px;bottom:10px;width:2px;height:auto}
+  .fd-route li{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"name n" "bar bar";gap:2px 12px;padding:9px 0 9px 0;align-items:center}
+  .fd-route .wp{position:absolute;left:-30px;top:12px;margin:0}
+  .fd-route b{grid-area:name}.fd-route .ro{grid-area:n}.fd-route .fdb{grid-area:bar;max-width:none}
+}
+
+/* feature rows: vignette beside text, alternating, no boxes */
+.wfeat.fd-feat{display:grid;grid-template-columns:minmax(0,1fr);gap:0;margin:28px 0 8px;border-top:1px solid var(--line)}
+.wfeat.fd-feat article{display:grid;grid-template-columns:160px minmax(0,1fr);gap:28px;align-items:start;padding:26px 0;border:0;border-bottom:1px solid var(--line);border-radius:0;background:transparent;box-shadow:none}
+.wfeat.fd-feat article:nth-child(even){grid-template-columns:minmax(0,1fr) 160px}
+.wfeat.fd-feat article:nth-child(even) .fd-vig{order:2}
+.wfeat.fd-feat .fd-vig{width:160px;height:107px;color:var(--ink);flex:none}
+.wfeat.fd-feat h3{font-size:21px;margin:4px 0 8px;letter-spacing:-.01em}
+.wfeat.fd-feat p{font-size:15.5px;color:var(--ink2);margin:0 0 12px;max-width:60ch}
+@media(max-width:640px){.wfeat.fd-feat article,.wfeat.fd-feat article:nth-child(even){grid-template-columns:1fr;gap:10px;padding:20px 0}.wfeat.fd-feat .fd-vig{width:96px;height:64px;order:0 !important}}
+/* briefing strip */
+.wstrip.fd-notam{background:var(--atlas2);border:0;border-left:4px solid var(--accent);border-radius:0 var(--r2) var(--r2) 0;margin:26px 0 12px}
+.wstrip.fd-notam b{font-family:var(--f-mono);font-size:15px;letter-spacing:.02em}
+
+/* ---------- dashboard deck ---------- */
+.fd-dash .fd-deck{padding-top:30px;display:grid;gap:18px;grid-template-columns:minmax(0,1fr);grid-template-areas:"head" "ready" "leg" "reads"}
+@media(min-width:900px){.fd-dash .fd-deck{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);grid-template-areas:"head head" "ready leg" "reads reads";gap:18px 28px;padding-top:40px}}
+.fd-deckhead{grid-area:head;padding:0 0 4px;max-width:none}
+.fd-deckhead h1{font-size:clamp(34px,5vw,58px);letter-spacing:-.03em;line-height:1.02;margin:0 0 10px}
+.fd-ready{grid-area:ready}.fd-leg{grid-area:leg}.fd-dash .fd-readouts{grid-area:reads;margin-top:4px}
+/* the readiness instrument and the next-leg cards live on the band, so the tile chrome goes dark */
+.fd-band .tile{background:var(--navy2);border:1px solid var(--navy-line);box-shadow:none;color:var(--on-navy)}
+.fd-band .tile.hi{background:linear-gradient(160deg,var(--navy2),rgba(17,30,51,.55))}
+.fd-band .ring .track{stroke:rgba(141,170,208,.18)}
+.fd-band .ring .rv{color:var(--on-navy)}
+.fd-band .ring.muted .rv,.fd-band .ring .rv.none{color:var(--on-navy2)}
+.fd-band .prov{color:var(--deck-orange)}
+.fd-ready .ringrow{gap:22px;align-items:center}
+.fd-ready .ring{width:150px;height:150px}
+.fd-ready .ring .rv{font-size:29px}
+.fd-ready .ring .rv.rng{font-size:19px}
+.fd-ready .ring .rv.none{font-size:14px}
+.fd-readytext{min-width:0;flex:1 1 150px;display:flex;flex-direction:column;gap:6px}
+.fd-readytext .tv{font-size:24px;line-height:1.1}
+.fd-readytext .td{font-size:14px}
+.fd-readytext .row{margin-top:6px}
+.fd-leg{display:grid;gap:12px;align-content:start}
+.fd-legcard{gap:6px}
+.fd-legcard .tv{font-size:22px;line-height:1.15}
+.fd-legcard .td{font-size:14px}
+.fd-legcard .row{margin-top:8px}
+.fd-next{border-left:4px solid var(--deck-orange) !important}
+.fd-next .tl{color:var(--deck-orange)}
+@media(max-width:560px){
+  .fd-ready .ringrow{flex-direction:column;align-items:flex-start;gap:12px}
+  .fd-ready .ring{width:128px;height:128px}
+  .fd-ready .ring .rv{font-size:25px}
+  .fd-readytext{width:100%}
+  .fd-dash .fd-deck{padding-top:22px;gap:14px}
+}
+/* the atlas grid under the deck: fewer boxes, hairline sections */
+.bento.fd-grid{margin-top:26px}
+.fd-entry{position:relative;overflow:hidden;padding-right:140px;min-height:150px;justify-content:center}
+.fd-entry .fd-vig{position:absolute;right:18px;top:50%;transform:translateY(-50%);width:120px;height:80px;color:var(--ink);opacity:.9}
+.fd-mis .fd-vig{color:var(--accent)}.fd-lab .fd-vig{color:var(--cyan)}
+@media(max-width:560px){.fd-entry{padding-right:18px;padding-top:96px}.fd-entry .fd-vig{top:14px;right:18px;transform:none}}
+.fd-areas .abar .ab{grid-template-columns:minmax(0,150px) minmax(40px,1fr) 48px}
+
+/* atlas tiles: quieter chrome under the deck (hairline, no shadow) */
+.bento.fd-grid>.tile{box-shadow:none;border-color:var(--atlas-line);background:var(--atlas)}
+.bento.fd-grid>.tile.hi{background:var(--atlas);border-left:4px solid var(--cyan)}
+.bento.fd-grid>.tile.today{border-left:4px solid var(--accent)}
+/* touch screens: the small buttons on these two screens meet the 44 px floor */
+@media(pointer:coarse){.wfeat .btn.sm,.today .todo .btn.sm{min-height:44px;padding-top:8px;padding-bottom:8px}}
+
+/* ---- 2026 Chart Image Practice (WP4): step strip and observe card ---- */
+.c26steps{list-style:none;margin:0 0 12px;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:4px;counter-reset:none}
+.c26steps li{display:flex;align-items:center;gap:6px;min-height:34px;padding:4px 8px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--muted);font-size:12.5px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;font-family:var(--f-mono)}
+.c26steps li b{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--surface3);color:var(--muted);font-size:11px;font-weight:700;flex:none}
+.c26steps li.done{color:var(--ink2);border-color:var(--line)}
+.c26steps li.done b{background:var(--deck-cyan);color:var(--navy)}
+.c26steps li.on{color:var(--on-navy);background:var(--navy);border-color:var(--navy)}
+.c26steps li.on b{background:var(--deck-orange);color:var(--navy)}
+@media(max-width:430px){.c26steps li{font-size:11px;padding:4px 6px;gap:4px;letter-spacing:0}}
+@media(max-width:359px){.c26steps{grid-template-columns:repeat(2,1fr)}}
+.c26obs{margin:0 0 14px;padding:14px 16px;border-radius:var(--r2);background:var(--atlas);border:1px solid var(--line);border-left:4px solid var(--deck-cyan)}
+.c26obs p{margin:6px 0 8px;color:var(--ink2);font-size:15px}
+.c26obs ul{margin:0 0 12px;padding-left:20px}.c26obs li{margin:4px 0;font-size:15px;line-height:1.45}
+.c26obs .btn.sm{min-height:44px}
+.c26what{margin-top:12px;border-top:1px solid var(--line);padding-top:8px}
+.c26what summary{cursor:pointer;font-weight:600;color:var(--ink);min-height:44px;display:flex;align-items:center}
+.c26what p{font-size:14px;color:var(--ink2);margin:8px 0}
+.c26mode .badge{color:var(--deck-cyan)}
+
+/* ---- WP5 to WP8: every page header carries the deck band, so the inner views match the homepage and dashboard.
+   A rounded navy panel inside the content column (not full bleed) so it sits correctly inside Lab layouts too. ---- */
+#app .hero.col:not(.fd-deckhead){max-width:none;position:relative;isolation:isolate;overflow:hidden;background:var(--navy);color:var(--on-navy);border-radius:var(--r2);padding:26px 24px 24px;margin:0 0 18px}
+#app .hero.col:not(.fd-deckhead)::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background-image:linear-gradient(var(--navy-line) 1px,transparent 1px),linear-gradient(90deg,var(--navy-line) 1px,transparent 1px);
+  background-size:48px 48px;mask-image:radial-gradient(120% 100% at 80% 30%,#000 20%,transparent 100%);-webkit-mask-image:radial-gradient(120% 100% at 80% 30%,#000 20%,transparent 100%);opacity:.5}
+#app .hero.col:not(.fd-deckhead)::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(60% 80% at 100% 0%,rgba(95,209,236,.14),transparent 70%)}
+#app .hero.col:not(.fd-deckhead)>*{max-width:76ch}
+#app .hero.col:not(.fd-deckhead) .eyebrow{color:var(--deck-cyan)}
+#app .hero.col:not(.fd-deckhead) .eyebrow::before{background:var(--deck-cyan)}
+#app .hero.col:not(.fd-deckhead) h1{color:var(--on-navy)}
+#app .hero.col:not(.fd-deckhead) .lede,#app .hero.col:not(.fd-deckhead)>p:not(.eyebrow){color:var(--on-navy2)}
+#app .hero.col:not(.fd-deckhead) a{color:var(--deck-cyan)}
+#app .hero.col:not(.fd-deckhead) .btn.gh{color:var(--on-navy);border-color:var(--navy-line)}
+.subnav+.hero.col{margin-top:14px}
+@media(max-width:767px){
+  #app .hero.col:not(.fd-deckhead){padding:18px 16px 16px;border-radius:14px;margin-bottom:14px}
+  .subnav+.hero.col{margin-top:10px}
+  /* Lab phone headers are one-line rows measured by the mobile gate: the band borrows the page gutter so the row keeps its width */
+  #app .hero.col.lk-hero,#app .hero.col.lkc-hero{padding:4px 8px;margin:0 -8px 8px;border-radius:10px}
+}
+
+/* ---- WP6: Mission 107 HUD as a navy instrument strip (same box sizes, so the mobile gate measurements hold) ---- */
+.m1hud{background:var(--navy);border-color:var(--navy);color:var(--on-navy);box-shadow:none}
+.m1hud::before{display:none}
+.m1top h1.mnum{color:var(--deck-cyan)}
+.m1hud .m1score,.m1hud .mph{color:var(--on-navy-dim)}
+.m1hud .m1score b,.m1hud .m1score.ro b{color:var(--on-navy)}
+.m1hud .m1steps li{color:var(--on-navy-dim)}
+.m1hud .m1steps li::before{background:var(--navy-line)}
+.m1hud .m1steps li.done::before{background:var(--deck-cyan)}
+.m1hud .m1steps li.cur::before{background:var(--deck-orange)}
+.m1hud .m1steps li.cur{color:var(--on-navy)}
+.m1hud .mquit,.m1hud .mquit.btn{color:var(--on-navy);background:transparent;border-color:var(--navy-line)}
+.m1hud .mqc{color:var(--on-navy)}
+.m1hud .mqc .btn.gh{color:var(--on-navy);border-color:var(--navy-line)}
+body.mfx-node .m1hud,body.mfx-run .m1hud{background:var(--navy);border-bottom-color:var(--navy2)}
+
+/* ---- WP7: quiz workspace in the deck language. Letters become instrument badges, progress fills in orange,
+   the feedback verdict reads as a readout. Heights are unchanged so SIG-03 and the fixed action bar still line up. ---- */
+.qprog i{background:linear-gradient(90deg,var(--deck-cyan),var(--deck-orange))}
+.qh1{color:var(--muted)}
+.opt .ltr{width:22px;height:22px;padding:0;margin-top:1px;border-radius:50%;display:inline-grid;place-items:center;background:var(--navy);color:var(--on-navy);font-size:11px;font-weight:700}
+.opt:hover:not(:disabled) .ltr{background:var(--deck-cyan);color:var(--navy)}
+.opt.ok .ltr{background:var(--ok);color:#fff}
+.opt.bad .ltr{background:var(--no);color:#fff}
+.fb{background:var(--atlas)}
+.fb .fbv{font-family:var(--f-mono);font-size:14px;letter-spacing:.04em;text-transform:uppercase}
+.rulebox{border-left:4px solid var(--deck-cyan)}
+.trapbox{border-left:4px solid var(--deck-orange)}
+.srcbtn{background:var(--navy);color:var(--on-navy);border-color:var(--navy)}
+.srcbtn .sl{color:var(--deck-cyan)}
+.srcbtn .sa{color:var(--deck-orange)}
+.srcbtn:hover{background:var(--navy2);color:var(--on-navy)}
+.pill.acs{background:color-mix(in srgb,var(--deck-cyan) 18%,var(--surface));color:var(--ink)}
+.pill.faa{background:color-mix(in srgb,var(--deck-orange) 22%,var(--surface));color:var(--ink)}
+
 </style>
 <script>
 window.addEventListener("error",function(e){
@@ -2234,7 +2482,7 @@ window.addEventListener("error",function(e){
 <nav class="tabbar" id="tabbar" aria-label="Sections"></nav>
 <script id="app-script">
 (function(){
-var __BUILD_DATE="2026-10-15";
+var __BUILD_DATE="2026-10-18";
 var __RULES_CHECKED="2026-10-11";
 var __FIG_FILES=1;
 var SOURCES={
@@ -2256,7 +2504,8 @@ var SOURCES={
  AKTS:{n:"Airman Knowledge Testing Supplement FAA-CT-8080-2H (2018)",u:"https://www.faa.gov/sites/faa.gov/files/training_testing/testing/supplements/sport_rec_private_akts.pdf",v:"2018",d:"2026-10-11",s:"CURRENT"},
  MISSED:{n:"FAA Frequently Missed ACS Codes, Q2 CY2025",u:"https://www.faa.gov/data_research/aviation_data_statistics/test_statistics/frequently_missed_acs_codes_fy_2025_2q.pdf",v:"Q2 2025",d:"2026-10-11",s:"CURRENT"},
  STATS:{n:"FAA Airman Knowledge Test statistics",u:"https://www.faa.gov/data_research/aviation_data_statistics/test_statistics",v:"CY2025",d:"2026-10-11",s:"CURRENT"},
- PSIBUL:{n:"PSI UAG Applicant Information Bulletin",u:"https://media.psiexams.com/faa/UAG_Information_Bulletin.pdf",v:"eff. 29 Sep 2025",d:"2026-09-02",s:"SECONDHAND — VERIFY"}
+ MATRIX:{n:"FAA Airman Knowledge Testing Matrix",u:"https://www.faa.gov/training_testing/testing/testing_matrix",v:"revised 25 Sep 2026",d:"2026-10-18",s:"CURRENT: UAG 60 questions, 2.0 hours, 70 percent; validation questions unscored and not counted in the 60"},
+ PSIBUL:{n:"PSI UAG Applicant Information Bulletin",u:"https://media.psiexams.com/faa/UAG_Information_Bulletin.pdf",v:"eff. 29 Sep 2025",d:"2026-10-18",s:"NAMED BY THE FAA AUG 2025 ADVISORY AS THE BLUEPRINT; the PDF itself blocks automated fetching, so the 48/25/20/5/2 weights rest on that reference and are not independently re-read"}
 };
 
 /* Exam blueprint effective 29 Sept 2025 (PSI UAG Applicant Information Bulletin;
@@ -3939,7 +4188,7 @@ function svgMsl(c){
  s+='<rect x="0" y="0" width="'+W+'" height="'+H+'" fill="url(#lk-sky)"/><rect class="lk-gridbg" x="0" y="0" width="'+x1+'" height="'+sea+'"/>';
  s+='<rect x="0" y="'+sea+'" width="'+(ph?30:46)+'" height="'+(H-sea)+'" fill="#1D4E7A" fill-opacity=".8"/>';
  s+='<path d="M0 '+Y(600)+'L'+(x1*.2)+' '+Y(1500)+'L'+(x1*.34)+' '+Y(1200)+'L'+(x1*.52)+' '+Y(2300)+'L'+(x1*.7)+' '+Y(1700)+'L'+(x1*.86)+' '+Y(2600)+'L'+x1+' '+Y(1900)+'V'+sea+'H0Z" fill="#16263A" pointer-events="none"/>';
- s+='<path d="M0 '+sea+'H'+x1+'" stroke="var(--lk-cyan)" stroke-opacity=".45" stroke-dasharray="4 4"/>'+(ph?'':lkAT(4,sea+17,"Sea level · 0 ft MSL",{size:f2,cls:"lk-cy"}));
+ s+='<path d="M0 '+sea+'H'+x1+'" stroke="var(--lk-cyan)" stroke-opacity=".45" stroke-dasharray="4 4"/>'; /* MFX-07: the label is drawn after the terrain so it is never buried under it (phones draw theirs later too) */
  /* the AGL limit follows the ground */
  var lp='M'+pts.slice(1).map(function(p){return p[0]+' '+Y(p[1]+400)}).join('L');
  s+=lkAH("terrain",'<path d="'+tp+'L'+x1+' '+H+'L0 '+H+'Z" fill="url(#lkA-gnd2)"/><path d="'+tp+'" fill="none" stroke="#7FA584" stroke-width="2"/>'
@@ -3965,7 +4214,7 @@ function svgMsl(c){
    +(ph?lkAT(dX,dy-14,"400 ft AGL",{size:fs,weight:700,fill:"var(--lk-cyan)",anchor:"middle"})
        :lkAT(dX+24,dy-34,"400 ft AGL",{size:fs,weight:700,fill:"var(--lk-cyan)"})+lkAT(dX+24,dy-18,"= 1,700 ft MSL",{size:f2,fill:"var(--lk-cyan)"})),
    ph?{x:pX0+6,y:lkAF(dy-34),w:lkAF(gx-6-pX0-6),h:lkAF(Y(1300)-dy+30)}:{x:dX-26,y:dy-26,w:52,h:44},"The aircraft at 400 feet AGL, 1,700 feet MSL",c==="drone");
- if(ph)s+=lkAT(34,sea+18,"Sea level",{size:f2,cls:"lk-cy"});
+ s+=ph?lkAT(34,sea+18,"Sea level",{size:f2,cls:"lk-cy"}):lkAT(50,sea+17,"Sea level · 0 ft MSL",{size:f2,cls:"lk-cy"});
  /* MSL tape with bugs */
  s+='<g pointer-events="none"><rect x="'+(x1+2)+'" y="0" width="'+(W-x1-2)+'" height="'+H+'" fill="var(--lk-stage)" fill-opacity=".6"/>';
  var tk=[0,1000,2000,3000,4000].map(function(v){return {v:v,label:lkAN(v),major:1}});
@@ -4915,10 +5164,42 @@ function cramSet(){
  for(i=0;i<fill.length&&out.length<40;i++)add(qItem(fill[i]));
  return shuf(out).slice(0,40);
 }
+/* ---- 2026 Chart Image Practice (WP4): observe, interpret, decide, explain on real FAA chart excerpts.
+   The FAA Sept 2026 Special Edition advisory says UAG questions from 26 Oct 2026 embed images from current
+   Sectional, IAP and Low Altitude Enroute charts that cannot be previewed; the sample captions it shows name
+   the chart and its validity dates. The testing supplement (FAA-CT-8080-2H) stays in use until a removal
+   date is set. Each figure below is a page of that supplement; the "find" list names what its questions use,
+   so the student reads the chart before the question is on screen. Checked 18 Oct 2026. ---- */
+var C26={
+ "20":{find:["Elizabeth City Regional and the area 3 marker","the CAUTION box about the unmarked balloon on a cable (area 5) and the balloon's top altitude in feet MSL","the airport data block and the airspace ring around Elizabeth City"]},
+ "21":{find:["Minot International (area 1): the dashed blue Class D ring and its boxed ceiling [42]","the data block: CT 118.2 with a star, ASOS 118.725, 1716 *L 77 122.95","the obstruction south of Minot printed 3147 with (1081) beneath it, and the dashed outline labelled 2676' UC","the latitude and longitude ticks near 47\u00b040'N 101\u00b026'W, and Garrison","the Devils Lake West MOA boundary"]},
+ "22":{find:["Coeur d'Alene-Boyington (area 2) and its dashed magenta ring with the note about Class E (sfc) effective hours","the data block: 2320 L 74 122.8 with a circled C, and RP 2","the obstruction east of area 2 printed 3888 with (216) beneath it"]},
+ "23":{find:["Savannah (area 3) and the two Class C rings labelled 41/13 and 41/SFC","the obstruction southwest of Savannah printed 1548 with (1534) beneath it","the magenta vignette and the Class E floors around the rings"]},
+ "26":{find:["area 1: McHenry inside the blue hatched circle labelled R-5402, the grey line IR678 near Glenfield, and the DEVILS LAKE EAST MOA boundary","area 2: Cooperstown and the direction of its runway 13","area 4: Jamestown Regional, its dashed magenta box and the magenta vignette, the large blue 2 with a small 4 south of the city, and the dashed line labelled 5\u00b0E","the line of latitude that crosses area 4"]},
+ "59":{find:["area 2 and the grey line labelled VR1667, VR1617, VR1638 and VR1668","where that route passes relative to the airports near it"]}
+};
+var C26_MAX=12;
+function c26Annotate(order){
+ var last=null,n=0;
+ for(var i=0;i<order.length;i++){var q=order[i];if(q.gen||!q.idx&&q.idx!==0){continue}var k=figKeyFrom(q.fig);if(!k||!C26[k])continue;
+  n=(k===last)?n+1:1;last=k;
+  q.c26={fig:k,first:n===1,step:(q.diff>=3||q.faa)?"decide":"interpret"};}
+ return order;
+}
+function c26Set(){
+ var by={},i,k;
+ for(i=0;i<QB.length;i++){var r=QB[i];if(r[6]===1)continue;k=figKeyFrom(r[9]);if(!k||!C26[k]||!FIGS[k])continue;(by[k]=by[k]||[]).push(i)}
+ var figs=shuf(Object.keys(by)),out=[];
+ for(i=0;i<figs.length&&out.length<8;i++){k=figs[i];
+  var ids=by[k].slice().sort(function(a,b){return (QB[a][7]-QB[b][7])||(QB[a][6]-QB[b][6])});
+  for(var j=0;j<ids.length&&out.length<C26_MAX;j++)out.push(qItem(ids[j]));}
+ return c26Annotate(out);
+}
 function buildSet(mode){
  var out=[],i,k;
  if(mode==="cram")return cramSet();
  if(mode==="figs"){for(i=0;i<QB.length;i++)if(QB[i][6]===0&&QB[i][9])out.push(qItem(i));return shuf(out)}
+ if(mode==="chart26")return c26Set();
  if(mode==="daily")return dailySet();
  if(mode==="missed"){var mp=shuf(missedPool());for(i=0;i<mp.length&&i<30;i++)out.push(qItem(mp[i]));return out}
  if(mode==="bm"){var bp=shuf(st.bookmarks.slice());for(i=0;i<bp.length;i++)if(QB[bp[i]])out.push(qItem(bp[i]));return out}
@@ -5681,6 +5962,7 @@ function vPractice(){
   var cls=pc===null?"n":(pc>=a.floor?"g":"r");
   h+='<button class="mode area-'+a.id+'" data-drill="'+a.id+'"><span class="sc '+cls+'">'+(pc===null?"not started":pc+"%")+'</span><span class="badge">'+a.wt+'% of exam · floor '+a.floor+'%</span><h4>'+esc(a.name)+'</h4><p>Static items plus generated variants.</p></button>';}
  h+='<button class="mode area-II" data-drill="figs"><span class="badge">Real chart figures · new test format</span><h4>Image-based questions</h4><p>'+QB.filter(function(r){return r[6]===0&&r[9]}).length+' questions on the actual FAA sectional and weather figures, shown on screen the way the test now shows them.</p></button>';
+ h+='<button class="mode area-II c26mode" data-drill="chart26"><span class="badge">New format from 26 Oct 2026 · Observe, interpret, decide, explain</span><h4>2026 Chart Image Practice</h4><p>Read a real FAA chart excerpt before the question appears, answer the reading and the decision it leads to, then see every choice explained with the rule. Up to '+C26_MAX+' questions on one to three charts.</p></button>';
  h+='<button class="mode" data-drill="cram"><span class="badge">Final 72 hours &middot; '+(st.fullBank?'up to 40':SET_CAP)+' questions</span><h4>Cram set</h4><p>Your misses, your confident errors, overdue reviews, Subpart D, then fresh numeric and chart items. Built for the last three days, usable any time.</p></button>';
  h+='<button class="mode" data-drill="mixed"><span class="badge">25 questions</span><h4>Mixed transfer</h4><p>All areas interleaved. Interleaving beats blocked practice for retention.</p></button>';
  h+='</div></div>';
@@ -5723,7 +6005,7 @@ function tickClock(){
    results screen; the "Full bank" chip on the Drills page lifts the cap. */
 var SET_CAP=25;
 function capped(d){return d==="mixed"||d==="cram"||AREAS.some(function(a){return a.id===d})}
-var SET_NAMES={diag:"Diagnostic",mis:"Misconceptions",srs:"Spaced review",full:"Full simulation",challenge:"Challenge simulation",validation:"Validation exam",faa:"FAA official sample questions",doc:"Subpart D drill",cram:"Cram set",mixed:"Mixed transfer",daily:"Daily challenge",figs:"Image-based questions",missed:"Missed questions",bm:"Bookmarks",weak:"Weak cells",chartgen:"Chart scenarios",redo:"Your misses from the last set"};
+var SET_NAMES={diag:"Diagnostic",mis:"Misconceptions",srs:"Spaced review",full:"Full simulation",challenge:"Challenge simulation",validation:"Validation exam",faa:"FAA official sample questions",doc:"Subpart D drill",cram:"Cram set",mixed:"Mixed transfer",daily:"Daily challenge",figs:"Image-based questions",chart26:"2026 Chart Image Practice",missed:"Missed questions",bm:"Bookmarks",weak:"Weak cells",chartgen:"Chart scenarios",redo:"Your misses from the last set"};
 function setName(d){if(SET_NAMES[d])return SET_NAMES[d];for(var i=0;i<AREAS.length;i++)if(AREAS[i].id===d)return "Drill: "+AREAS[i].name;return "Practice set"}
 function startSet(d){
  /* site build: a drill tapped before the bank has arrived starts as soon as it does */
@@ -5771,7 +6053,7 @@ function restoreRun(r){
  for(k=0;k<r.order.length;k++){x=r.order[k];if(!x||typeof x!=="object")return false;
   if(x.gen){if(typeof x.q!=="string"||!Array.isArray(x.o)||typeof x.a!=="number")return false;if(!isPerm(x.perm,x.o.length))delete x.perm;order.push(x)}
   else{if(typeof x.idx!=="number"||!QB[x.idx])return false;var it=qItem(x.idx);if(isPerm(x.perm,it.o.length))it.perm=x.perm;order.push(it)}}
- assignPerms(order,r.mode);
+ assignPerms(order,r.mode);if(r.mode==="chart26")c26Annotate(order);
  st.mode=r.mode;st.order=order;st.i=(typeof r.i==="number"&&r.i>=0)?Math.min(order.length,Math.floor(r.i)):0;
  st.answers=Array.isArray(r.answers)?r.answers.slice(0,order.length):[];st.picks=Array.isArray(r.picks)?r.picks.slice(0,order.length):[];
  st.conf=(r.conf==="guess"||r.conf==="unsure"||r.conf==="certain")?r.conf:null;
@@ -5833,6 +6115,7 @@ function vRun(){
  h+='<div class="quizbar"><button class="qx" id="quit" aria-label="Quit this set"'+(st.quitAsk?' aria-expanded="true"':'')+'>✕</button><div class="qprog" role="progressbar" aria-label="Progress through this set" aria-valuemin="0" aria-valuemax="'+tot+'" aria-valuenow="'+(st.i+1)+'"><i style="width:'+Math.round((st.i+(revealed?1:0))/tot*100)+'%"></i></div><span class="qn ro"><b>'+(st.i+1)+'</b><span class="u">/'+tot+'</span></span>'+(st.timed?'<span class="clock" id="clock" role="timer" aria-label="Time remaining">'+clockStr()+'</span>':'<span class="qs ro" title="correct so far">'+rs+'<span class="u">✓</span></span>')+'</div>';
  if(st.quitAsk)h+='<div class="qconfirm" role="group" aria-label="Confirm quit"><p>Quit this set? Answered questions stay recorded.</p><button class="btn" id="quityes">Quit</button><button class="btn gh" id="quitno">Keep going</button></div>';
  h+='<h1 class="qh1">'+esc(setName(st.mode))+'</h1>';
+ if(st.mode==="chart26"&&q.c26)h+=c26Head(q,revealed);
  h+='<div class="qcard'+(revealed?" revealed":"")+'"><div class="qmeta"><span class="pill acs">'+esc(nm)+'</span><span class="pill">'+esc(q.acs)+'</span>'+(q.gen?'<span class="pill gen">generated</span>':'')+(q.val?'<span class="pill val">validation</span>':'')+(q.faa?'<span class="pill faa">official FAA</span>':'');
  if(!q.gen)h+='<button class="bmbtn'+(isBookmarked(q)?" on":"")+'" data-bm="1" aria-pressed="'+(isBookmarked(q)?"true":"false")+'" aria-label="Bookmark this question" title="Bookmark">'+(isBookmarked(q)?"⚑":"⚐")+'</button>';
  h+='</div>';
@@ -5891,6 +6174,23 @@ function vRun(){
  return h;
 }
 
+function c26Head(q,revealed){
+ var c=q.c26,k=c.fig,f=FIGS[k]||{},obs=c.first&&!revealed;
+ /* one step lit at a time: observe on the first question of a figure, then the reading or the decision, then the explanation */
+ var cur=obs?0:revealed?3:(c.step==="decide"?2:1);
+ var names=["Observe","Interpret","Decide","Explain"],steps=[];
+ for(var si=0;si<4;si++)steps.push([names[si],si===cur?"on":(si<cur||(si===1&&cur===2&&c.step==="decide")||(revealed&&si<3))?"done":""]);
+ var h='<ol class="c26steps" aria-label="Chart practice steps">';
+ for(var i=0;i<steps.length;i++)h+='<li class="'+steps[i][1]+'"'+(steps[i][1]==="on"?' aria-current="step"':'')+'><b>'+(i+1)+'</b>'+steps[i][0]+'</li>';
+ h+='</ol>';
+ if(obs){
+  h+='<div class="c26obs"><span class="rl2">Observe · Figure '+k+(f.t?' · '+esc(f.t):'')+'</span><p>Open the chart and find these before you read the question. On the real test the image is on screen with the question, so this is the habit to build.</p><ul>';
+  for(i=0;i<C26[k].find.length;i++)h+='<li>'+C26[k].find[i]+'</li>';
+  h+='</ul><button type="button" class="btn sm" data-fig="'+k+'">Open Figure '+k+'</button>';
+  h+='<details class="c26what"><summary>What changes on 26 October 2026, and what is not known</summary><p><b>Confirmed by the FAA</b> (Airman Testing Community Advisory, September 2026 Special Edition, and the Airman Knowledge Testing Matrix revised 25 Sep 2026): from 26 October 2026 the UAG test adds image-based questions whose images are not in the testing supplement, taken from current Sectional, Instrument Approach and Low Altitude Enroute charts; the sample captions name the chart and the dates it is valid; those questions cannot be previewed; the supplement booklet stays in use until a removal date is set; 60 scored questions, 2 hours, 70 percent to pass, with unscored validation questions possible on any exam.</p><p><b>Not published</b>: how many image questions a test carries, which charts or areas are used, and whether the printed figures in this practice will appear on your test. This practice uses the official supplement pages (FAA-CT-8080-2H, 2018) because they are the only chart questions the FAA publishes; the procedure is what transfers to a chart you have never seen.</p></details></div>';
+ }
+ return h;
+}
 function vFaa(){
  var pool=faaPool(null), figs=0, i, by={};
  for(i=0;i<pool.length;i++){var r=QB[pool[i]];if(r[9])figs++;by[r[0]]=(by[r[0]]||0)+1}
@@ -6449,44 +6749,41 @@ function vDash(){
  var cls=A.p>=0.97?"g":A.p>=0.85?"m":"r";
  var today=dayKey(), dailyDone=(st.daily[today]!=null);
 
- /* the hero states the level once; the tiles below carry the detail (provisional count, chance, plan) */
- var h='<div class="hero col"><p class="eyebrow">Part 107 · your readiness</p><h1>'+LEVELS[A.level]+'</h1>';
+ /* ---- flight deck band: level, readiness instrument and the next leg, on navy ---- */
+ var h='<section class="fd-band fd-dash"><div class="fd-in fd-deck">';
+ h+='<div class="hero col fd-deckhead"><p class="eyebrow">Part 107 · your readiness</p><h1>'+LEVELS[A.level]+'</h1>';
  h+='<p class="lede">'+(st.log.length?(A.thin>=5?'Answer a few sets and the estimate below fills in.':'Your readiness level, from every answer you have logged.'):'Nothing logged yet. Every number here is a placeholder until you answer something.')+'</p></div>';
-
- h+='<h2 class="sr-only">Your progress</h2><div class="bento">';
- /* readiness: full width when neither a Continue nor a Do-this-next tile sits beside it */
- var hasCont=!!(st.run&&st.run.paused&&st.run.order&&st.run.i<st.run.order.length)||!!(st.lastDrill&&st.lastDrill!==NA.drill),hasNext=true;
- if(typeof todayPlan==="function"){var tp0=todayPlan();for(i=0;i<tp0.length;i++)if(tp0[i].k==="drill"&&!tp0[i].done&&tp0[i].btn&&tp0[i].btn.drill===NA.drill)hasNext=false}
- var lone=!hasCont&&!hasNext;
- h+='<div class="tile hi '+(lone?'span6 lone':'span3')+'"><div class="tl">Readiness</div><div class="ringrow">'+ringSvg(A.p,cls,A);
- h+='<div style="min-width:0;flex:1 1 130px"><div class="tv" style="font-size:22px">Chance of passing</div>'+(A.thin?'<span class="prov">Provisional: '+A.thin+' area'+(A.thin===1?'':'s')+' lack'+(A.thin===1?'s':'')+' evidence</span>':'')+'<div class="td">Your chance of scoring 42 of 60 if you tested today, from your answers so far. Thin or old evidence lowers it.</div>';
- h+='<div class="row" style="margin-top:10px"><button class="btn gh" data-v="exams" data-sub="ready" style="width:auto">See the gate</button></div></div></div></div>';
-
- /* continue where you stopped: a paused set resumes at its question; otherwise offer a fresh set of the last kind */
+ h+='<h2 class="sr-only">Your progress</h2>';
+ /* readiness instrument (keeps the .tile.hi .ring contract used by the readiness and signature tests) */
+ h+='<div class="tile hi fd-ready"><div class="tl">Readiness</div><div class="ringrow">'+ringSvg(A.p,cls,A);
+ h+='<div class="fd-readytext"><div class="tv">Chance of passing</div>'+(A.thin?'<span class="prov">Provisional: '+A.thin+' area'+(A.thin===1?'':'s')+' lack'+(A.thin===1?'s':'')+' evidence</span>':'')+'<div class="td">Your chance of scoring 42 of 60 if you tested today, from your answers so far. Thin or old evidence lowers it.</div>';
+ h+='<div class="row"><button class="btn gh fd-ghost" data-v="exams" data-sub="ready" style="width:auto">See the gate</button></div></div></div></div>';
+ /* next leg: resume a paused set, else the next action, else a fresh set of the last kind */
  var LBL=(typeof SET_NAMES!=="undefined")?SET_NAMES:{};
  var nameOf=function(d){return typeof setName==="function"?setName(d):(LBL[d]||d)};
- if(st.run&&st.run.paused&&st.run.order&&st.run.i<st.run.order.length){
-  h+='<div class="tile span3"><div class="tl">Continue</div><div class="tv" style="font-size:20px">'+esc(nameOf(st.run.mode))+'</div><div class="td">Paused at question '+(st.run.i+1)+' of '+st.run.order.length+'. Your answers so far are kept.</div><div class="row" style="margin-top:auto"><button class="btn gh" data-resume="1" style="width:auto">Resume</button></div></div>';}
- else if(st.lastDrill&&st.lastDrill!==NA.drill){var ld=st.lastDrill;
-  h+='<div class="tile span3"><div class="tl">Continue</div><div class="tv" style="font-size:20px">'+esc(nameOf(ld))+'</div><div class="td">Another set of the kind you were last working in.</div><div class="row" style="margin-top:auto"><button class="btn gh" data-drill="'+esc(ld)+'" style="width:auto">New set</button></div></div>';}
- /* next action, unless the Today list below already shows the same step with its own Start button */
  var dupNext=false;
  if(typeof todayPlan==="function"){var tp=todayPlan();for(i=0;i<tp.length;i++)if(tp[i].k==="drill"&&!tp[i].done&&tp[i].btn&&tp[i].btn.drill===NA.drill)dupNext=true}
+ h+='<div class="fd-leg">';
+ if(st.run&&st.run.paused&&st.run.order&&st.run.i<st.run.order.length){
+  h+='<div class="tile fd-legcard"><div class="tl">Continue</div><div class="tv">'+esc(nameOf(st.run.mode))+'</div><div class="td">Paused at question '+(st.run.i+1)+' of '+st.run.order.length+'. Your answers so far are kept.</div><div class="row"><button class="btn" data-resume="1" style="width:auto">Resume</button></div></div>';}
+ else if(st.lastDrill&&st.lastDrill!==NA.drill){var ld=st.lastDrill;
+  h+='<div class="tile fd-legcard"><div class="tl">Continue</div><div class="tv">'+esc(nameOf(ld))+'</div><div class="td">Another set of the kind you were last working in.</div><div class="row"><button class="btn gh fd-ghost" data-drill="'+esc(ld)+'" style="width:auto">New set</button></div></div>';}
  if(!dupNext){
- h+='<div class="tile hi span3" style="border-left:4px solid var(--accent)"><div class="tl" style="color:var(--accent)">Do this next</div>';
- h+='<div class="tv" style="font-size:22px">'+esc(NA.label)+'</div><div class="td">'+esc(NA.why)+'</div>';
- h+='<div class="row" style="margin-top:auto"><button class="btn" data-drill="'+NA.drill+'">Start</button></div></div>';
+  h+='<div class="tile hi fd-legcard fd-next"><div class="tl">Do this next</div><div class="tv">'+esc(NA.label)+'</div><div class="td">'+esc(NA.why)+'</div><div class="row"><button class="btn" data-drill="'+NA.drill+'">Start</button></div></div>';
  }
-
+ h+='</div>';
+ /* instrument readouts along the lower edge */
+ h+='<ul class="fd-readouts" aria-label="Your numbers"><li><b class="ro">'+st.log.length+'</b><span>answers logged</span></li><li'+(due?' class="w"':'')+'><b class="ro">'+due+'</b><span>review'+(due===1?"":"s")+' due</span></li><li><b class="ro">'+sk+'</b><span>day streak</span></li><li><b class="ro">'+lv.level+'</b><span>level · '+xp+' XP</span></li></ul>';
+ h+='</div></section>';
+ h+='<div class="bento fd-grid">';
  /* today plan */
  if(typeof todayTile==="function")h+=todayTile();
  /* per-area bars */
- h+='<div class="tile span4"><div class="tl">By exam area</div><div class="abar">';
+ h+='<div class="tile span4 fd-areas"><div class="tl">Learning path · by exam area</div><div class="abar">';
  for(i=0;i<AREAS.length;i++){var a=AREAS[i],e=A.ev[a.id],pc=areaPct(e);
   var bc=pc===null?"":(pc>=a.floor?"g":(pc<a.floor-15?"r":""));
   h+='<div class="ab"><span class="n">'+esc(a.name)+'</span><span class="t"><i class="'+bc+'" style="width:'+(pc===null?0:pc)+'%"></i></span><span class="v">'+(pc===null?"—":roV(pc,"%"))+'</span></div>';}
- h+='</div><div class="td">Bar fills to your accuracy. Floors are 90 / 88 / 88 / 80 / 80.</div>';
- h+='<div class="strip"><span><b class="ro">'+st.log.length+'</b> answers logged</span><span'+(due?' class="w"':'')+'><b>'+due+'</b> review'+(due===1?"":"s")+' due</span><span'+(st.misconceptions.length?' class="n"':'')+'><b>'+st.misconceptions.length+'</b> misconception'+(st.misconceptions.length===1?"":"s")+'</span></div></div>';
+ h+='</div><div class="td">Bar fills to your accuracy. Floors are 90 / 88 / 88 / 80 / 80.'+(st.misconceptions.length?' <b>'+st.misconceptions.length+'</b> misconception'+(st.misconceptions.length===1?"":"s")+' to fix.':'')+'</div></div>';
 
  /* streak */
  var m=daysStudied(), cal='';
@@ -6509,8 +6806,8 @@ function vDash(){
 
  /* missions and lab */
  var mdone=0;for(var mk in st.missions)if(st.missions[mk].done)mdone++;
- h+='<div class="tile span3"><div class="tl" style="color:var(--accent)">Mission 107</div><div class="tv" style="font-size:20px">'+mdone+' of 5 missions flown</div><div class="td">Five jobs, each a chain of decisions with the rule as the consequence. Airspace, weather, night, people, emergencies.</div><div class="row" style="margin-top:auto"><button class="btn gh" data-v="practice" data-sub="missions" style="width:auto">'+(mdone?"Continue":"Fly the first")+'</button></div></div>';
- h+='<div class="tile span3"><div class="tl" style="color:var(--cyan)">Flight Lab</div><div class="tv" style="font-size:20px">Six interactive modules</div><div class="td">Airspace diagrams, a chart to read, weather you can change, a drone you can tilt, an airport that follows the wind, and symbols to hunt.</div><div class="row" style="margin-top:auto"><button class="btn gh" data-v="lab" style="width:auto">Open the Lab</button></div></div>';
+ h+='<div class="tile span3 fd-entry fd-mis">'+(typeof fdVig==="function"?fdVig("l"):"")+'<div class="tl" style="color:var(--accent)">Mission 107</div><div class="tv" style="font-size:20px">'+mdone+' of 5 missions flown</div><div class="td">Five jobs, each a chain of decisions with the rule as the consequence. Airspace, weather, night, people, emergencies.</div><div class="row" style="margin-top:auto"><button class="btn gh" data-v="practice" data-sub="missions" style="width:auto">'+(mdone?"Continue":"Fly the first")+'</button></div></div>';
+ h+='<div class="tile span3 fd-entry fd-lab">'+(typeof fdVig==="function"?fdVig("r"):"")+'<div class="tl" style="color:var(--cyan)">Flight Lab</div><div class="tv" style="font-size:20px">Six interactive modules</div><div class="td">Airspace diagrams, a chart to read, weather you can change, a drone you can tilt, an airport that follows the wind, and symbols to hunt.</div><div class="row" style="margin-top:auto"><button class="btn gh" data-v="lab" style="width:auto">Open the Lab</button></div></div>';
  /* achievements teaser */
  var got=0;for(i=0;i<ACH.length;i++)if(st.ach[ACH[i].k])got++;
  h+='<div class="tile span6"><div class="tl">Achievements · '+got+' of '+ACH.length+'</div><div class="achs" style="margin:6px 0 0">';
@@ -8123,10 +8420,13 @@ function mClamp(v,max){v=Number(v);if(!isFinite(v)||v<0)v=0;return Math.min(Math
 function mQuitBtn(attr){return '<button class="btn gh sm mquit" '+attr+'="exit" aria-label="Quit mission"><span>Quit</span><span class="mq2">&nbsp;mission</span></button>'}
 /* MFX: mission HUD. Desktop keeps the title line, score, Quit and labelled phase steps; phones (CSS) fold it
    into one compact block: title and Quit on top, "phase · score" under the title, a thin segmented bar. */
+/* SIG-02: Quit asks once (a mis-tap on a phone ended the run before). Brief and debrief exits stay direct. */
+function mQuitConfirm(attr){return '<div class="qconfirm mqc" role="group" aria-label="Confirm quit"><p>Quit this mission? Your best score is kept.</p><button type="button" class="btn" '+attr+'="exitnow">Quit</button><button type="button" class="btn gh" '+attr+'="exitno">Keep flying</button></div>'}
 function mHud(title,score,max,phases,idx,quitAttr,showQuit){
- var h='<div class="m1hud"><div class="m1top"><h1 class="mnum">'+esc(title)+'</h1><div class="mmeta"><span class="mph" aria-hidden="true">'+esc(phases[idx][1])+' · '+(idx+1)+'/'+phases.length+'</span><span class="m1score ro"><b>'+score+'</b><span class="u">/'+max+'<span class="mpts"> pts</span></span></span></div>'+(showQuit?mQuitBtn(quitAttr):"")+'</div><ol class="m1steps" style="grid-template-columns:repeat('+phases.length+',1fr)">';
+ var h='<div class="m1hud'+(showQuit&&st.mQuitAsk?' asking':'')+'"><div class="m1top"><h1 class="mnum">'+esc(title)+'</h1><div class="mmeta"><span class="mph" aria-hidden="true">'+esc(phases[idx][1])+' · '+(idx+1)+'/'+phases.length+'</span><span class="m1score ro"><b>'+score+'</b><span class="u">/'+max+'<span class="mpts"> pts</span></span></span></div>'+(showQuit?mQuitBtn(quitAttr):"")+'</div><ol class="m1steps" style="grid-template-columns:repeat('+phases.length+',1fr)">';
  for(var i=0;i<phases.length;i++)h+='<li class="'+(i<idx?"done":i===idx?"cur":"")+'"'+(i===idx?' aria-current="step"':'')+'><span>'+phases[i][1]+'</span></li>';
- return h+'</ol></div>';
+ h+='</ol>';if(showQuit&&st.mQuitAsk)h+=mQuitConfirm(quitAttr);
+ return h+'</div>';
 }
 /* shared countdown markup: the seconds live in their own element so the text never sits on the shrinking bar */
 function mTimerBar(leftMs,totalMs){var pc=Math.max(0,Math.min(100,leftMs/totalMs*100));
@@ -8492,6 +8792,7 @@ function m1Advance(){
 }
 function m1Act(k,v){
  var r=st.m1run;if(!r)return;
+ if(k!=="exit"&&k!=="exitno"&&k!=="exitnow")st.mQuitAsk=0;
  if(k==="begin"){m1Next("a1");return}
  if(k==="grid"){r.grid=r.grid?0:1;render();return}
  if(k==="mapclose"){r.mapSel=null;render();return}
@@ -8514,7 +8815,9 @@ function m1Act(k,v){
    ("You checked "+hit+" of the 7 required items"+(miss.length?", missing: "+miss.join("; "):"")+(wrong.length?". Not required: "+wrong.join("; "):"")+".");
   m1Log("pre","Preflight checklist",o,m1Pts(o),"107.49",why);r.log[r.log.length-1].h=mChkHead(o,hit===7,wrong.length);r.pick=0;mfxPend("fb");render();return;
  }
- if(k==="exit"){st.keepScroll=0;clearInterval(_m1T);st.m1run=null;st.mRun=null;save();render();return}
+ if(k==="exit"&&r&&r.node!=="brief"&&r.node!=="debrief"){st.mQuitAsk=1;st.keepScroll=1;st.focusTo="mqyes";render();return}
+ if(k==="exitno"){st.mQuitAsk=0;st.keepScroll=1;render();return}
+ if(k==="exit"||k==="exitnow"){st.mQuitAsk=0;st.keepScroll=0;clearInterval(_m1T);st.m1run=null;st.mRun=null;save();render();return}
  if(k==="replay"){st.keepScroll=0;m1Start();return}
 }
 function mChkHead(o,allReq,extra){return o==="good"?"Complete · +20":o==="meh"?(allReq&&extra?"All required, plus "+extra+" not required · +8":"Mostly there · +8"):"Incomplete · +0"}
@@ -8859,13 +9162,16 @@ function rmAdvance(){
 }
 function rmAct(k,v){
  var r=st.rm;if(!r)return;
+ if(k!=="exit"&&k!=="exitno"&&k!=="exitnow")st.mQuitAsk=0;
  if(k==="begin"){rmNext(rmDef().start);return}
  if(k==="choose"){rmChoose(+v);return}
  if(k==="next"){rmAdvance();return}
  if(k==="tok"){r.tok=+v;render();return}
  if(k==="chk"){r.chk[v]=r.chk[v]?0:1;render();return}
  if(k==="chksubmit"){rmChecklist();return}
- if(k==="exit"){st.keepScroll=0;clearInterval(_rmT);st.rm=null;st.mRun=null;save();render();return}
+ if(k==="exit"&&r.node!=="brief"&&r.node!=="debrief"){st.mQuitAsk=1;st.keepScroll=1;render();return}
+ if(k==="exitno"){st.mQuitAsk=0;st.keepScroll=1;render();return}
+ if(k==="exit"||k==="exitnow"){st.mQuitAsk=0;st.keepScroll=0;clearInterval(_rmT);st.rm=null;st.mRun=null;save();render();return}
  if(k==="replay"){st.keepScroll=0;rmStart(r.id);return}
 }
 function rmRule(sec){
@@ -9436,19 +9742,22 @@ function moreAct(k){
 function heroContours(){
  var s='',i;
  var paths=["M-40 120 C 120 60, 260 200, 420 110 S 700 40, 900 140","M-40 190 C 140 140, 280 260, 460 170 S 720 110, 900 210","M-40 260 C 160 220, 300 320, 500 240 S 740 190, 900 280","M-40 50 C 100 10, 240 120, 380 60 S 640 -20, 900 70","M-40 330 C 180 300, 320 380, 540 310 S 760 270, 900 350"];
- for(i=0;i<paths.length;i++)s+='<path d="'+paths[i]+'" fill="none" stroke="currentColor" stroke-width="1" opacity="'+(0.10-i*0.012).toFixed(3)+'"/>';
+ for(i=0;i<paths.length;i++)s+='<path d="'+paths[i]+'" fill="none" stroke="currentColor" stroke-width="1" opacity="'+(0.13-i*0.014).toFixed(3)+'"/>';
  return s;
 }
 /* side-profile aircraft with a HUD ring and altitude tape */
 function heroAircraft(){
  var s='';
- s+='<g class="hud"><circle cx="300" cy="190" r="118" fill="none" stroke="var(--cyan)" stroke-width="1" opacity=".35"/><circle cx="300" cy="190" r="104" fill="none" stroke="var(--cyan)" stroke-width="1" opacity=".18" stroke-dasharray="2 6"/>';
+ s+='<g class="hud"><circle cx="300" cy="190" r="118" fill="none" stroke="var(--cyan)" stroke-width="1.2" opacity=".5"/><circle cx="300" cy="190" r="104" fill="none" stroke="var(--cyan)" stroke-width="1" opacity=".18" stroke-dasharray="2 6"/>';
  for(var a=0;a<360;a+=30){var r1=a%90===0?108:112,x1=300+r1*Math.cos(a*Math.PI/180),y1=190+r1*Math.sin(a*Math.PI/180),x2=300+118*Math.cos(a*Math.PI/180),y2=190+118*Math.sin(a*Math.PI/180);s+='<line x1="'+x1.toFixed(1)+'" y1="'+y1.toFixed(1)+'" x2="'+x2.toFixed(1)+'" y2="'+y2.toFixed(1)+'" stroke="var(--cyan)" stroke-width="1.2" opacity=".5"/>'}
  s+='<path d="M196 190 h40 M364 190 h40 M300 86 v18 M300 276 v18" stroke="var(--cyan)" stroke-width="1.5" opacity=".6"/></g>';
+ /* SIG-04: pitch ladder behind the craft, the instrument idea the ring only hinted at (static, not part of the slow HUD spin) */
+ s+='<g class="ladder" stroke="var(--cyan)" stroke-width="1" opacity=".42" fill="none"><path d="M258 150 h26 M316 150 h26 M262 230 h22 M316 230 h22 M268 120 h14 M318 120 h14 M268 260 h14 M318 260 h14"/></g>';
+ s+='<g class="ladder" font-family="var(--f-mono)" font-size="8" fill="var(--cyan)" opacity=".55"><text x="248" y="153" text-anchor="end">10</text><text x="352" y="153">10</text><text x="252" y="233" text-anchor="end">10</text><text x="348" y="233">10</text></g>';
  /* altitude tape, right */
- s+='<g class="tape" font-family="var(--f-mono)" font-size="9" fill="currentColor" opacity=".55">';
+ s+='<g class="tape" font-family="var(--f-mono)" font-size="10.5" fill="currentColor" opacity=".62">';
  for(var t=0;t<=8;t++){var y=90+t*25;s+='<line x1="470" y1="'+y+'" x2="'+(t%2?476:482)+'" y2="'+y+'" stroke="currentColor" stroke-width="1"/>';if(t%2===0)s+='<text x="488" y="'+(y+3)+'">'+(400-t*50)+'</text>'}
- s+='<rect x="466" y="183" width="54" height="16" rx="3" fill="var(--accent)" opacity=".95"/><text x="493" y="195" font-size="9.5" text-anchor="middle" fill="var(--accent-ink)" font-weight="700" opacity="1">400</text></g>';
+ s+='<rect x="466" y="182" width="58" height="18" rx="3" fill="var(--accent)" opacity=".95"/><text x="495" y="195" font-size="10.5" text-anchor="middle" fill="var(--accent-ink)" font-weight="700" opacity="1">400</text><text x="470" y="78" font-size="7.5" opacity=".8" letter-spacing=".08em">FT AGL</text></g>';
  /* aircraft, three-quarter from the side: body, two visible arms, props as flat ellipses */
  s+='<g class="craft" transform="translate(300 190) scale(1.3) translate(-300 -190)"><ellipse cx="300" cy="232" rx="96" ry="9" fill="currentColor" opacity=".08"/>';
  s+='<path d="M228 184 L270 194 M372 184 L330 194" stroke="currentColor" stroke-width="7" stroke-linecap="round"/>';
@@ -9465,23 +9774,44 @@ function heroAircraft(){
 function heroSvg(){
  return '<svg class="herosvg" viewBox="0 0 560 380" role="img" aria-label="A small unmanned aircraft framed by a heads-up display ring and an altitude tape reading 400 feet">'+heroContours()+heroAircraft()+'</svg>';
 }
+/* Flight Deck vignettes: three line drawings, one per feature, drawn in currentColor so they sit on any surface */
+function fdVig(k){
+ var o='<svg class="fd-vig" viewBox="0 0 120 80" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">';
+ if(k==="q")o+='<rect x="14" y="12" width="92" height="56" rx="6" opacity=".55"/><path d="M26 30h40M26 42h52M26 54h30" opacity=".8"/><circle cx="92" cy="30" r="7" stroke="var(--cyan)"/><path d="M89 30l2.5 2.5L96 27" stroke="var(--cyan)"/>';
+ else if(k==="r")o+='<path d="M22 62a40 40 0 0 1 76 0" opacity=".45"/><path d="M22 62a40 40 0 0 1 52-37" stroke="var(--accent)" stroke-width="3"/><path d="M60 62L78 34" stroke="var(--cyan)" stroke-width="2"/><circle cx="60" cy="62" r="3.5" fill="currentColor" stroke="none"/><path d="M26 56h4M90 56h4M60 24v4" opacity=".7"/>';
+ else o+='<path d="M12 60C34 40 60 40 108 60" opacity=".5"/><path d="M12 68C40 50 70 50 108 68" opacity=".3"/><g transform="translate(60 36)"><path d="M-22-10L-8-3M22-10L8-3" stroke-width="4"/><ellipse cx="-24" cy="-11" rx="12" ry="2.6" stroke="var(--cyan)"/><ellipse cx="24" cy="-11" rx="12" ry="2.6" stroke="var(--cyan)"/><path d="M-10-4q10-4 20 0l1 7q-11 4-22 0z" fill="currentColor" stroke="none"/></g>';
+ return o+'</svg>';
+}
 function vWelcome(){
- var tr=trainPool(null).length,gens=GEN.length,figs=0;for(var i=0;i<QB.length;i++)if(QB[i][9])figs++;
+ var tr=trainPool(null).length,gens=GEN.length,figs=0,i;for(i=0;i<QB.length;i++)if(QB[i][9])figs++;
+ var faa=0;for(i=0;i<QB.length;i++)if(QB[i][6]===2)faa++;
  /* site build: the bank arrives after this screen paints; assemble.py supplies the same counts */
- if(!QB_OK&&typeof __QN!=="undefined"){tr=__QN.train;figs=__QN.figs}
- var h='<section class="welcome"><div class="wtext"><p class="eyebrow">FAA Part 107 · Remote Pilot knowledge test</p>';
- h+='<h1 class="wh1">Know when you are ready.<br>Not when you feel ready.</h1>';
+ if(!QB_OK&&typeof __QN!=="undefined"){tr=__QN.train;figs=__QN.figs;faa=46}
+ /* ---- flagship hero: a navy flight deck band, headline left, the instrument right ---- */
+ var h='<section class="welcome fd-band fd-hero"><div class="fd-in"><div class="wtext"><p class="eyebrow">FAA Part 107 · Remote Pilot knowledge test</p>';
+ h+='<h1 class="wh1">Know when you are ready.<br><span class="fd-dim">Not when you feel ready.</span></h1>';
  h+='<p class="lede">Every question explained choice by choice and linked to the rule. The real FAA chart figures on screen. A readiness number built from your evidence, not your mood.</p>';
- h+='<div class="row wcta"><button class="btn lg" data-drill="diag">Take the 21-question diagnostic</button><button class="btn gh lg" data-v="lab">Explore the Lab</button></div>';
+ h+='<div class="row wcta"><button class="btn lg" data-drill="diag">Take the 21-question diagnostic</button><button class="btn gh lg fd-ghost" data-v="lab">Explore the Lab</button></div>';
  h+='<p class="wnote">Free. No account. Progress stays in this browser. Not an FAA product.</p></div>';
- h+='<div class="wart">'+heroSvg()+'</div></section>';
- /* three real feature previews, drawn from the live app rather than mockups */
- h+='<h2 class="sr-only">What is inside</h2><section class="wfeat">';
- h+='<article><span class="fk">Questions</span><h3>'+tr+' practice questions, plus fresh ones every time</h3><p>Three choices, each one explained. The rule in one line, with a link to the regulation itself. '+figs+' show the real FAA chart and weather figures, and '+gens+' question builders change the numbers every time so you cannot just memorize answers.</p><button class="btn gh sm" data-v="practice">See the drills</button></article>';
- h+='<article><span class="fk">Readiness</span><h3>A chance of passing, not a score</h3><p>Your answers in each exam area are turned into a chance of scoring 42 of 60 on the real test. Old or thin evidence counts for less, and the bar for “ready” is set higher than the 70% pass mark.</p><button class="btn gh sm" data-v="exams" data-sub="ready">How it works</button></article>';
- h+='<article><span class="fk">Lab and missions</span><h3>Learn it by touching it</h3><p>Airspace you can place yourself in, weather you can change with sliders, a drone you can tilt, and five missions where every decision has the regulation as its consequence.</p><button class="btn gh sm" data-v="practice" data-sub="missions">Fly a mission</button></article>';
+ h+='<div class="wart">'+heroSvg()+'</div></div>';
+ /* instrument readouts along the lower edge of the band */
+ h+='<div class="fd-in"><ul class="fd-readouts" aria-label="What is inside">';
+ h+='<li><b class="ro">'+tr+'</b><span>practice questions</span></li><li><b class="ro">'+faa+'</b><span>official FAA samples, keyed</span></li><li><b class="ro">'+figs+'</b><span>real chart and weather figures</span></li><li><b class="ro">9</b><span>interactive diagrams</span></li><li><b class="ro">5</b><span>decision missions</span></li>';
+ h+='</ul></div></section>';
+ /* ---- the exam as a route: five areas, weighted as the test is ---- */
+ h+='<section class="fd-sec"><div class="fd-head"><p class="eyebrow">The exam, as a route</p><h2>Sixty questions. Five areas. One pass mark.</h2><p class="fd-sub">You need 42 of 60. Regulations alone is nearly half the test, so the plan starts there.</p></div>';
+ h+='<ol class="fd-route" aria-label="Exam areas by weight">';
+ var byWt=AREAS.slice().sort(function(x,y){return y.n60-x.n60});
+ for(i=0;i<byWt.length;i++){var a=byWt[i];h+='<li><span class="wp" aria-hidden="true"></span><b>'+esc(a.name)+'</b><span class="ro">'+a.n60+' of 60</span><span class="fdb" aria-hidden="true"><span style="width:'+a.wt+'%"></span></span></li>'}
+ h+='</ol></section>';
+ /* ---- three real feature previews, drawn from the live app rather than mockups ---- */
+ h+='<h2 class="sr-only">What is inside</h2><section class="wfeat fd-feat">';
+ h+='<article>'+fdVig("q")+'<div><span class="fk">Questions</span><h3>'+tr+' practice questions, plus fresh ones every time</h3><p>Three choices, each one explained. The rule in one line, with a link to the regulation itself. '+figs+' show the real FAA chart and weather figures, and '+gens+' question builders change the numbers every time so you cannot just memorize answers.</p><button class="btn gh sm" data-v="practice">See the drills</button></div></article>';
+ h+='<article>'+fdVig("r")+'<div><span class="fk">Readiness</span><h3>A chance of passing, not a score</h3><p>Your answers in each exam area are turned into a chance of scoring 42 of 60 on the real test. Old or thin evidence counts for less, and the bar for “ready” is set higher than the 70% pass mark.</p><button class="btn gh sm" data-v="exams" data-sub="ready">How it works</button></div></article>';
+ h+='<article>'+fdVig("l")+'<div><span class="fk">Lab and missions</span><h3>Learn it by touching it</h3><p>Airspace you can place yourself in, weather you can change with sliders, a drone you can tilt, and five missions where every decision has the regulation as its consequence.</p><button class="btn gh sm" data-v="practice" data-sub="missions">Fly a mission</button></div></article>';
  h+='</section>';
- h+='<section class="wstrip"><div><b>26 Oct 2026</b><span>Chart images move on screen. The Chart Lab is built for it.</span></div><div><b>48%</b><span>of the exam is Regulations. Drill it first.</span></div><div><b>Most missed</b><span>Flying over people and the Declaration of Compliance trip up more test takers than any other topic. There is a drill for that too.</span></div></section>';
+ /* ---- notices, in the style of a briefing strip ---- */
+ h+='<section class="wstrip fd-notam"><div><b>26 Oct 2026</b><span>Chart images move on screen. The Chart Lab is built for it.</span></div><div><b>48%</b><span>of the exam is Regulations. Drill it first.</span></div><div><b>Most missed</b><span>Flying over people and the Declaration of Compliance trip up more test takers than any other topic. There is a drill for that too.</span></div></section>';
  return h;
 }
 
